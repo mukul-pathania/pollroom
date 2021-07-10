@@ -1,9 +1,10 @@
 import Header from 'components/header';
+import Hero from 'sections/Hero';
 export default function Home(): JSX.Element {
   return (
     <>
       <Header />
-      <p className="bg-gray-100 font-main font-bold text-xl">Hello World</p>
+      <Hero />
     </>
   );
 }

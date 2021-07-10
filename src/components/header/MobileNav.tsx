@@ -14,7 +14,7 @@ const MobileNav = ({ isOpen }: propTypes): JSX.Element => {
       leave="transition duration-500 transform"
       leaveFrom="opacity-100 translate-x-0"
       leaveTo="opacity-0 translate-x-full"
-      className="md:hidden fixed top-16 left-0 bg-white w-full flex flex-col items-center justify-around"
+      className="md:hidden fixed top-16 py-8 left-0 bg-white w-full flex flex-col items-center justify-around"
     >
       {MenuData.map((menuitem) => (
         <MenuItem key={menuitem.key} path={menuitem.path}>
