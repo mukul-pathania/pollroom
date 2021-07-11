@@ -27,7 +27,7 @@ function Nav(): JSX.Element {
   return (
     <nav
       className={clsx(
-        'mx-auto px-4 sm:px-6 lg:px-10 fixed top-0 left-0 w-full transition-all duration-500',
+        'mx-auto px-4 sm:px-6 lg:px-20 fixed top-0 left-0 w-full transition-all duration-500',
         isScrolled ? 'bg-white py-2 md:py-4' : 'py-4 md:py-8',
       )}
     >
