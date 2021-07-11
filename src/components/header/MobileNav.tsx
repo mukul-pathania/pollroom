@@ -1,10 +1,20 @@
 import { Transition } from '@headlessui/react';
-
-type propTypes = { isOpen: boolean };
 import MenuItem from './MenuItem';
 import MenuData from './MenuData';
+import clsx from 'clsx';
+import React from 'react';
 
-const MobileNav = ({ isOpen }: propTypes): JSX.Element => {
+type propTypes = { isOpen: boolean; isScrolled: boolean };
+
+const MobileNav = ({ isOpen, isScrolled }: propTypes): JSX.Element => {
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
   return (
     <Transition
       show={isOpen}
@@ -14,7 +24,10 @@ const MobileNav = ({ isOpen }: propTypes): JSX.Element => {
       leave="transition duration-500 transform"
       leaveFrom="opacity-100 translate-x-0"
       leaveTo="opacity-0 translate-x-full"
-      className="md:hidden fixed top-16 py-8 left-0 bg-white w-full flex flex-col items-center justify-around"
+      className={clsx(
+        'md:hidden fixed py-8 left-0 bg-white w-full flex flex-col items-center justify-around',
+        isScrolled ? 'top-14' : 'top-16',
+      )}
     >
       {MenuData.map((menuitem) => (
         <MenuItem key={menuitem.key} path={menuitem.path}>
@@ -22,10 +35,10 @@ const MobileNav = ({ isOpen }: propTypes): JSX.Element => {
         </MenuItem>
       ))}
       <div className="flex flex-col items-center justify-around mt-4 space-y-2">
-        <a className="hover:text-pink-900 text-pink-700 font-main font-medium text-base cursor-pointer">
+        <a className="hover:text-secondary-700 text-primary-700 font-main font-medium text-base cursor-pointer">
           Login
         </a>
-        <a className="text-pink-700 border-pink-700 hover:text-pink-900 hover:border-pink-900 px-6 py-2 font-main rounded-md font-semibold text-lg border-2 transition duration-500 cursor-pointer">
+        <a className="text-primary-700 border-primary-700 hover:text-secondary-700 hover:border-secondary-700 px-6 py-2 font-main rounded-md font-semibold text-lg border-2 transition duration-500 cursor-pointer">
           Sign Up
         </a>
       </div>

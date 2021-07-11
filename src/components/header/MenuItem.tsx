@@ -9,7 +9,7 @@ const MenuItem = ({ children, path }: propsType): JSX.Element => {
   return (
     <a
       href={path}
-      className="hover:text-pink-700 text-black px-3 py-2 rounded-md font-main font-regular text-base"
+      className="hover:text-secondary-700 text-black px-3 py-2 rounded-md font-main font-regular text-base"
     >
       {children}
     </a>

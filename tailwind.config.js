@@ -1,13 +1,38 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const colors = require('tailwindcss/colors');
+
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
       main: ['DM Sans'],
     },
-  },
-  extend: {
     colors: {
+      blueGray: colors.blueGray,
+      coolGray: colors.coolGray,
+      gray: colors.gray,
+      trueGray: colors.trueGray,
+      warmGray: colors.warmGray,
+      red: colors.red,
+      orange: colors.orange,
+      amber: colors.amber,
+      yellow: colors.yellow,
+      lime: colors.lime,
+      green: colors.green,
+      emerald: colors.emerald,
+      teal: colors.teal,
+      cyan: colors.cyan,
+      sky: colors.sky,
+      blue: colors.blue,
+      indigo: colors.indigo,
+      violet: colors.violet,
+      purple: colors.purple,
+      fuchsia: colors.fuchsia,
+      pink: colors.pink,
+      rose: colors.rose,
+      white: colors.white,
+      black: colors.black,
       primary: {
         50: '#9aa9b5',
         100: '#8193a2',
@@ -46,6 +71,7 @@ module.exports = {
       },
     },
   },
+  extend: {},
   variants: {
     extend: {},
   },

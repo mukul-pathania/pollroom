@@ -27,7 +27,7 @@ function Nav(): JSX.Element {
   return (
     <nav
       className={clsx(
-        'mx-auto px-4 sm:px-6 lg:px-20 fixed top-0 left-0 w-full transition-all duration-500',
+        'z-50 mx-auto px-4 sm:px-6 lg:px-20 fixed top-0 left-0 w-full transition-all duration-500',
         isScrolled ? 'bg-white py-2 md:py-4' : 'py-4 md:py-8',
       )}
     >
@@ -44,17 +44,17 @@ function Nav(): JSX.Element {
             </div>
           </div>
           <div className="space-x-4 items-baseline hidden md:flex">
-            <a className="hover:text-pink-700 font-main font-medium text-base cursor-pointer">
+            <a className="hover:text-secondary-700 font-main font-medium text-base cursor-pointer">
               Login
             </a>
-            <a className="hover:text-white hover:bg-pink-700 text-pink-700 px-6 py-2 font-main rounded-md font-semibold text-base border-pink-700 border-2 transition-colors duration-500 cursor-pointer">
+            <a className="hover:text-white hover:bg-secondary-700 text-primary-700 px-6 py-2 font-main rounded-md font-semibold text-base border-primary-700 hover:border-secondary-700 border-2 transition-colors duration-500 cursor-pointer">
               Sign Up
             </a>
           </div>
         </div>
         <ToggleButton isOpen={isOpen} toggleOpen={() => setIsOpen(!isOpen)} />
       </div>
-      <MobileNav isOpen={isOpen} />
+      <MobileNav isOpen={isOpen} isScrolled={isScrolled} />
     </nav>
   );
 }
