@@ -28,7 +28,7 @@ function Nav(): JSX.Element {
     <nav
       className={clsx(
         'z-50 mx-auto px-4 sm:px-6 lg:px-20 fixed top-0 left-0 w-full transition-all duration-500',
-        isScrolled ? 'bg-white py-2 md:py-4' : 'py-4 md:py-8',
+        isScrolled ? 'bg-white py-2 md:py-4 shadow-lg' : 'py-4 md:py-8',
       )}
     >
       <div className="flex items-center justify-between w-full">

@@ -5,7 +5,8 @@ const Hero = (): JSX.Element => {
     <div className="flex flex-col md:flex-row justify-between items-center md:items-start mx-auto px-4 pt-32 md:pt-48 sm:px-6 lg:px-20 bg-gray-100">
       <div className="md:pr-8 md:w-1/2">
         <h3 className="font-bold text-4xl md:text-5xl lg:text-6xl text-center md:text-left mb-5">
-          A better way to <span className="text-secondary-600"> organize </span>
+          A better way to{' '}
+          <span className="text-secondary-600"> create &#38; organize </span>
           multiple
           <span className="text-secondary-600"> real-time </span>
           polls
