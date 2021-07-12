@@ -6,7 +6,7 @@ type MenuDataType = {
 
 const MenuData: MenuDataType[] = [
   { label: 'Services', path: '#', key: 1 },
-  { label: 'Create Poll', path: '#', key: 2 },
+  { label: 'Create Room', path: '#', key: 2 },
   { label: 'Testimonials', path: '#', key: 3 },
 ];
 
