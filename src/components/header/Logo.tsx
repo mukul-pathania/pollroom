@@ -1,7 +1,7 @@
 const Logo = (): JSX.Element => {
   return (
-    <div className="flex-shrink-0">
-      <p className="font-main font-semibold text-2xl">PollRoom</p>
+    <div className="flex-shrink-0 cursor-pointer">
+      <p className="font-main font-semibold md:text-2xl text-xl">PollRoom</p>
     </div>
   );
 };
