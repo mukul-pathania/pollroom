@@ -63,14 +63,14 @@ const FeatureBox = ({
   text,
 }: FeatureBoxPropTypes): JSX.Element => {
   return (
-    <div className="px-6 py-8 my-4 shadow-lg hover:shadow-xl bg-gray-50 hover:bg-secondary-50 rounded transition-all duration-500 transform hover:-translate-y-2">
+    <div className="px-6 py-8 shadow-lg hover:shadow-xl bg-gray-50 hover:bg-secondary-50 rounded transition-all duration-500 transform hover:-translate-y-2">
       <div className="flex justify-center items-center">
         <img src={icon} alt="" className="max-w-xs max-h-20 my-2" />
       </div>
       <h4 className="font-bold text-xl pt-2 pb-4 text-center text-primary-700">
         {heading}
       </h4>
-      <p className="text-center">{text}</p>
+      <p className="text-center text-gray-700">{text}</p>
     </div>
   );
 };
