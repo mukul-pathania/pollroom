@@ -77,7 +77,7 @@ const FeatureBox = ({
 
 const Features = (): JSX.Element => {
   return (
-    <div
+    <section
       id="features"
       className="flex flex-col mx-auto pt-12 px-4 sm:px-6 lg:px-20"
     >
@@ -92,7 +92,7 @@ const Features = (): JSX.Element => {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

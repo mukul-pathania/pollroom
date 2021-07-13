@@ -104,7 +104,7 @@ const TESTIMONIALS_DATA: testimonialData[][] = [
     },
     {
       image: avatarDefaultImage.src,
-      text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore quibusdam beatae tempora. Dicta quae quas architecto officiis magnam placeat. Deleniti harum magnam nesciunt dicta rerum voluptatibus doloribus beatae incidunt. Libero.',
+      text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum dignissimos, beatae recusandae, tempora in et quaerat corrupti ea deleniti exercitationem rem illo ex reprehenderit perferendis molestiae fugiat aliquam adipisci laudantium velit, provident voluptas minima. Sit voluptatum placeat repudiandae rerum laborum officia, facilis tenetur id soluta sed, quae animi ad repellat doloribus voluptate molestiae cupiditate? Facere labore assumenda accusamus necessitatibus laborum veritatis numquam molestiae, illum repellendus incidunt consequuntur cumque velit, repellat maxime. Molestias a ipsa nostrum pariatur deserunt ea corporis atque dolorum, architecto quaerat nihil odit nobis sint ullam sed dolore recusandae enim quod, deleniti expedita aspernatur adipisci est! Dicta, consequatur.',
       username: '@lorem ipsum',
       name: 'Lorem Ipsum',
       id: 'ad90h4fs',
@@ -115,6 +115,7 @@ const TESTIMONIALS_DATA: testimonialData[][] = [
 const SWIPER_CONFIG = {
   spaceBetween: 10,
   speed: 1000,
+  autoHeight: true,
   loop: true,
   autoplay: {
     waitForTransition: false,
@@ -124,8 +125,13 @@ const SWIPER_CONFIG = {
 
 const Testimonial = (): JSX.Element => {
   return (
-    <div className="bg-gray-100 pt-10 pb-10 overflow-hidden">
-      <h3 className="font-bold text-4xl text-center mb-8">Our features</h3>
+    <section
+      className="bg-gray-100 pt-10 pb-10 overflow-hidden"
+      id="testimonials"
+    >
+      <h3 className="font-bold text-4xl text-center mb-8">
+        What users say about us
+      </h3>
       <Swiper {...SWIPER_CONFIG} slidesPerView="auto" centeredSlides>
         {TESTIMONIALS_DATA.map((item) => (
           <div key={item[0].id}>
@@ -143,7 +149,7 @@ const Testimonial = (): JSX.Element => {
           </div>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 };
 
