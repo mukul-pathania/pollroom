@@ -115,7 +115,6 @@ const TESTIMONIALS_DATA: testimonialData[][] = [
 const SWIPER_CONFIG = {
   spaceBetween: 10,
   speed: 1000,
-  autoHeight: true,
   loop: true,
   autoplay: {
     waitForTransition: false,
