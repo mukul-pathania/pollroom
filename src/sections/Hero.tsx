@@ -11,8 +11,8 @@ const Hero = (): JSX.Element => {
           <span className="text-secondary-600"> real-time </span>
           polls
         </h3>
-        <p className="font-normal text-lg text-center md:text-left leading-8 mb-6">
-          Organize multipe poll questions into rooms
+        <p className="font-normal text-lg text-center md:text-left mb-6">
+          Organize multipe questions into rooms
           <br />
           Different rooms for different purposes
         </p>
