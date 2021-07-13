@@ -4,9 +4,17 @@ import MenuData from './MenuData';
 import clsx from 'clsx';
 import React from 'react';
 
-type propTypes = { isOpen: boolean; isScrolled: boolean };
+type propTypes = {
+  isOpen: boolean;
+  isScrolled: boolean;
+  closeMobileNav: () => void;
+};
 
-const MobileNav = ({ isOpen, isScrolled }: propTypes): JSX.Element => {
+const MobileNav = ({
+  isOpen,
+  isScrolled,
+  closeMobileNav,
+}: propTypes): JSX.Element => {
   React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -30,7 +38,11 @@ const MobileNav = ({ isOpen, isScrolled }: propTypes): JSX.Element => {
       )}
     >
       {MenuData.map((menuitem) => (
-        <MenuItem key={menuitem.key} path={menuitem.path}>
+        <MenuItem
+          key={menuitem.key}
+          path={menuitem.path}
+          closeMobileNav={closeMobileNav}
+        >
           {menuitem.label}
         </MenuItem>
       ))}

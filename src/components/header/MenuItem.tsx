@@ -3,11 +3,23 @@ import React from 'react';
 type propsType = {
   children: React.ReactNode;
   path: string;
+  closeMobileNav?: () => void;
 };
 
-const MenuItem = ({ children, path }: propsType): JSX.Element => {
+const MenuItem = ({
+  children,
+  path,
+  closeMobileNav,
+}: propsType): JSX.Element => {
   return (
     <a
+      onClick={
+        closeMobileNav
+          ? closeMobileNav
+          : () => {
+              return;
+            }
+      }
       href={path}
       className="hover:text-secondary-700 text-black px-3 py-2 rounded-md font-main font-regular text-base"
     >

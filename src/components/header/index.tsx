@@ -54,7 +54,11 @@ function Nav(): JSX.Element {
         </div>
         <ToggleButton isOpen={isOpen} toggleOpen={() => setIsOpen(!isOpen)} />
       </div>
-      <MobileNav isOpen={isOpen} isScrolled={isScrolled} />
+      <MobileNav
+        isOpen={isOpen}
+        isScrolled={isScrolled}
+        closeMobileNav={() => setIsOpen(false)}
+      />
     </nav>
   );
 }

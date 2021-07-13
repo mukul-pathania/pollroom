@@ -134,19 +134,17 @@ const Testimonial = (): JSX.Element => {
       </h3>
       <Swiper {...SWIPER_CONFIG} slidesPerView="auto" centeredSlides>
         {TESTIMONIALS_DATA.map((item) => (
-          <div key={item[0].id}>
-            <SwiperSlide>
-              {item.map(({ image, text, name, username, id }) => (
-                <TestimonialCard
-                  image={image}
-                  text={text}
-                  name={name}
-                  key={id}
-                  username={username}
-                />
-              ))}
-            </SwiperSlide>
-          </div>
+          <SwiperSlide key={item[0].id}>
+            {item.map(({ image, text, name, username, id }) => (
+              <TestimonialCard
+                image={image}
+                text={text}
+                name={name}
+                key={id}
+                username={username}
+              />
+            ))}
+          </SwiperSlide>
         ))}
       </Swiper>
     </section>
