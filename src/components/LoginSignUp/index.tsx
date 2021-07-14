@@ -1,5 +1,7 @@
 import { FcGoogle } from 'react-icons/fc';
 import { IoLogoGithub } from 'react-icons/io';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import clsx from 'clsx';
 
 type propTypes = {
   heading: string;
@@ -10,26 +12,51 @@ type propTypes = {
   isSignUpPage?: boolean;
 };
 
-const LoginSignUp = ({
-  heading,
-  subHeading,
-  oAuthText,
-  credentialsText,
-  buttonText,
-  isSignUpPage,
-}: propTypes): JSX.Element => {
+type Inputs = {
+  username?: string;
+  email: string;
+  password: string;
+  'confirm-password'?: string;
+};
+
+const ERROR_MESSAGES = {
+  passwordLength: 'Password must have length of atleast 6',
+  passwordRequired: 'Password is required',
+  userNameRequired: 'Username is required',
+  passwordsMatch: 'Passwords should match',
+  emailRequired: 'Email is required',
+};
+
+type errorMessageType = { errorMessage?: string };
+const Error = ({ errorMessage }: errorMessageType): JSX.Element => {
+  return <p className="text-red-500 pt-2">{errorMessage}</p>;
+};
+
+const LoginSignUp = (props: propTypes): JSX.Element => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors: formErrors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+    console.log(formErrors);
+  };
+
   return (
     <>
       <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center pt-2">
-        {heading}
+        {props.heading}
       </h2>
       <p className="text-2xl md:text-3xl lg:text-4xl text-gray-500 text-center font-semibold pt-2">
-        {subHeading}
+        {props.subHeading}
       </p>
       <div className="bg-gray-200 rounded-md p-6 mt-8 w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto mb-8">
         <div className="w-full">
           <p className="text-center text-gray-600 font-medium pb-2">
-            {oAuthText}
+            {props.oAuthText}
           </p>
           <div className="flex justify-center items-center">
             <button
@@ -56,45 +83,115 @@ const LoginSignUp = ({
           <hr className="w-full h-1 bg-primary-700 rounded-full my-2" />
           <div>
             <p className="text-center text-gray-600 font-medium pb-4 pt-4">
-              {credentialsText}
+              {props.credentialsText}
             </p>
-            <form action="">
-              {isSignUpPage && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {props.isSignUpPage && (
                 <input
-                  className="mx-auto mb-5 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg"
+                  className={clsx(
+                    'mx-auto mt-6 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg',
+                    formErrors.username
+                      ? 'form-error-message'
+                      : 'focus:ring-2 focus:ring-primary-700',
+                  )}
                   type="text"
-                  name="username"
+                  {...register('username', {
+                    required: {
+                      value: true,
+                      message: ERROR_MESSAGES.userNameRequired,
+                    },
+                  })}
                   placeholder="Username"
                 />
               )}
+              {formErrors.username && (
+                <Error errorMessage={formErrors.username.message} />
+              )}
               <input
-                className="mx-auto mb-5 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg"
+                className={clsx(
+                  'mx-auto mt-6 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg',
+                  formErrors.email
+                    ? 'form-error-message'
+                    : 'focus:ring-primary-700 focus:ring-2',
+                )}
                 type="email"
-                name="email"
+                {...register('email', {
+                  required: {
+                    value: true,
+                    message: ERROR_MESSAGES.emailRequired,
+                  },
+                })}
                 placeholder="Email"
               />
+              {formErrors.email && (
+                <Error errorMessage={formErrors.email.message} />
+              )}
               <input
-                className="mx-auto mb-5 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg"
+                className={clsx(
+                  'mx-auto mt-6 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg',
+                  formErrors.password
+                    ? 'form-error-message'
+                    : 'focus:ring-2 focus:ring-primary-700',
+                )}
                 type="password"
-                name="password"
+                {...register('password', {
+                  required: {
+                    value: true,
+                    message: ERROR_MESSAGES.passwordRequired,
+                  },
+                  // Apply this condition only on signup page
+                  ...(props.isSignUpPage && {
+                    minLength: {
+                      value: 6,
+                      message: ERROR_MESSAGES.passwordLength,
+                    },
+                  }),
+                })}
                 placeholder="Password"
               />
-              {isSignUpPage && (
+              {formErrors.password && (
+                <Error errorMessage={formErrors.password.message} />
+              )}
+              {props.isSignUpPage && (
                 <input
-                  className="mx-auto mb-5 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg"
+                  className={clsx(
+                    'mx-auto mt-6 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg',
+                    formErrors['confirm-password']
+                      ? 'form-error-message'
+                      : 'focus:ring-2 focus:ring-primary-700',
+                  )}
                   type="password"
-                  name="confirm-password"
+                  {...register('confirm-password', {
+                    required: {
+                      value: true,
+                      message: ERROR_MESSAGES.passwordRequired,
+                    },
+                    minLength: {
+                      value: 6,
+                      message: ERROR_MESSAGES.passwordLength,
+                    },
+                    validate: {
+                      matchPassword: (value) => {
+                        return (
+                          value === watch('password') ||
+                          ERROR_MESSAGES.passwordsMatch
+                        );
+                      },
+                    },
+                  })}
                   placeholder="Confirm Password"
                 />
               )}
-
+              {formErrors['confirm-password'] && (
+                <Error errorMessage={formErrors['confirm-password'].message} />
+              )}
               <input
                 className="mx-auto mt-8 block bg-primary-700 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded hover:bg-secondary-900 transition-all duration-500 hover:shadow-md"
                 type="submit"
-                value={buttonText}
+                value={props.buttonText}
               />
             </form>
-            {!isSignUpPage && (
+            {!props.isSignUpPage && (
               <div className="flex w-full justify-between pt-8">
                 <a
                   href=""
