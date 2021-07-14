@@ -61,7 +61,7 @@ const Contact = (): JSX.Element => {
           <h4 className="pt-4 text-center md:text-left text-xl font-semibold pb-6 text-gray-50">
             Contact Info
           </h4>
-          <div className="flex flex-col items-center md:items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-col md:items-start">
             <ContactItem
               icon={<IoLocationSharp size={42} style={{ fill: 'white' }} />}
               heading="Address"
