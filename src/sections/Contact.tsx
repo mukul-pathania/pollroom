@@ -50,9 +50,12 @@ const address = (
 const Contact = (): JSX.Element => {
   return (
     <section className="mx-auto pt-12 px-4 sm:px-6 lg:px-20 bg-primary-900">
-      <h3 className="font-bold text-4xl text-center pb-6 text-white">
-        Contact Me
+      <h3 className="font-bold text-4xl text-center pb-2 text-white">
+        Contact
       </h3>
+      <h4 className="text-center font-medium text-gray-400 pb-6 text-lg">
+        Get in touch with me
+      </h4>
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/2">
           <h4 className="pt-4 text-center md:text-left text-xl font-semibold pb-6 text-gray-50">
@@ -63,6 +66,7 @@ const Contact = (): JSX.Element => {
               icon={<IoLocationSharp size={42} style={{ fill: 'white' }} />}
               heading="Address"
               text={address}
+              link="https://goo.gl/maps/LGYR2rb2qsWQvqEZA"
             />
             <ContactItem
               icon={<FaPhoneAlt size={42} color="white" />}

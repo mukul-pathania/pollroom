@@ -104,7 +104,7 @@ const TESTIMONIALS_DATA: testimonialData[][] = [
     },
     {
       image: avatarDefaultImage.src,
-      text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum dignissimos, beatae recusandae, tempora in et quaerat corrupti ea deleniti exercitationem rem illo ex reprehenderit perferendis molestiae fugiat aliquam adipisci laudantium velit, provident voluptas minima. Sit voluptatum placeat repudiandae rerum laborum officia, facilis tenetur id soluta sed, quae animi ad repellat doloribus voluptate molestiae cupiditate? Facere labore assumenda accusamus necessitatibus laborum veritatis numquam molestiae, illum repellendus incidunt consequuntur cumque velit, repellat maxime. Molestias a ipsa nostrum pariatur deserunt ea corporis atque dolorum, architecto quaerat nihil odit nobis sint ullam sed dolore recusandae enim quod, deleniti expedita aspernatur adipisci est! Dicta, consequatur.',
+      text: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum vero sapiente error beatae deleniti voluptatibus mollitia quis, necessitatibus molestiae asperiores dolorem, amet debitis reprehenderit accusamus est. Quia iusto iure, impedit modi expedita repellat nam minima quod ad asperiores cum! Perspiciatis.',
       username: '@lorem ipsum',
       name: 'Lorem Ipsum',
       id: 'ad90h4fs',
@@ -119,6 +119,7 @@ const SWIPER_CONFIG = {
   autoplay: {
     waitForTransition: false,
     delay: 4000,
+    disableOnInteraction: false,
   },
 };
 
@@ -128,9 +129,11 @@ const Testimonial = (): JSX.Element => {
       className="bg-gray-100 pt-10 pb-10 overflow-hidden"
       id="testimonials"
     >
-      <h3 className="font-bold text-4xl text-center mb-8">
-        What users say about us
-      </h3>
+      <h3 className="font-bold text-4xl text-center mb-2">Testimonials</h3>
+      <h4 className="text-center font-medium text-gray-500 pb-8 text-lg">
+        What our users say about us
+      </h4>
+
       <Swiper {...SWIPER_CONFIG} slidesPerView="auto" centeredSlides>
         {TESTIMONIALS_DATA.map((item) => (
           <SwiperSlide key={item[0].id}>

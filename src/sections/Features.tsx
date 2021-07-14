@@ -81,7 +81,10 @@ const Features = (): JSX.Element => {
       id="features"
       className="flex flex-col mx-auto pt-12 px-4 sm:px-6 lg:px-20"
     >
-      <h3 className="font-bold text-4xl text-center pb-6">Our features</h3>
+      <h3 className="font-bold text-4xl text-center pb-2">Features</h3>
+      <h4 className="text-center font-medium text-gray-600 pb-6 text-lg">
+        Meet exciting features we provide
+      </h4>
       <div className="grid gap-8 grid-cols-1 grid-rows-8 sm:grid-cols-2 sm:grid-rows-4 lg:grid-cols-3 lg:grid-rows-3 py-8">
         {FeatureData.map((feature, index) => (
           <FeatureBox
