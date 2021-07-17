@@ -23,7 +23,7 @@ const SignUp = (): JSX.Element => {
     <section className="mx-auto mt-4 px-4 sm:px-6 lg:px-20 bg-primary-700 relative">
       <Background />
       <div className="flex flex-col md:flex-row py-12 md:py-12 relative items-center justify-between">
-        <p className="text-center md:text-left text-white py-2 mb-4 md:mb-0 text-3xl font-bold w-8/12">
+        <p className="text-center md:text-left text-white py-2 mb-4 md:mb-0 text-3xl font-bold md:w-8/12">
           Create polls for your meetings, webinars, events and more!
         </p>
         <a

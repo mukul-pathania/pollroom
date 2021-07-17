@@ -1,6 +1,7 @@
 import { FcGoogle } from 'react-icons/fc';
 import { IoLogoGithub } from 'react-icons/io';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { login } from 'adapters';
 import clsx from 'clsx';
 
 type propTypes = {
@@ -41,8 +42,7 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    console.log(formErrors);
+    if (!props.isSignUpPage) login(data.email, data.password);
   };
 
   return (
@@ -195,13 +195,13 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
               <div className="flex w-full justify-between pt-8">
                 <a
                   href=""
-                  className="text-primary-600 hover:text-secondary-900"
+                  className="text-primary-600 hover:text-secondary-900 text-sm md:text-base"
                 >
                   Forgot password?
                 </a>
                 <a
                   href=""
-                  className="text-primary-600 hover:text-secondary-900"
+                  className="text-primary-600 hover:text-secondary-900 text-sm md:text-base"
                 >
                   Create new account
                 </a>
