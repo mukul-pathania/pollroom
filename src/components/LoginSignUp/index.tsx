@@ -1,8 +1,10 @@
+import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { IoLogoGithub } from 'react-icons/io';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { login } from 'adapters';
+import { loginWithEmailPassword, signUpWithEmailPassword } from 'adapters/auth';
 import clsx from 'clsx';
+import Toast from 'components/Toast';
 
 type propTypes = {
   heading: string;
@@ -20,6 +22,12 @@ type Inputs = {
   'confirm-password'?: string;
 };
 
+type alertStateType = {
+  open: boolean;
+  message: string;
+  type: 'INFO' | 'SUCCESS' | 'ERROR';
+};
+
 const ERROR_MESSAGES = {
   passwordLength: 'Password must have length of atleast 6',
   passwordRequired: 'Password is required',
@@ -34,6 +42,11 @@ const Error = ({ errorMessage }: errorMessageType): JSX.Element => {
 };
 
 const LoginSignUp = (props: propTypes): JSX.Element => {
+  const [alert, setAlert] = React.useState<alertStateType>({
+    open: false,
+    message: '',
+    type: 'INFO',
+  });
   const {
     register,
     handleSubmit,
@@ -41,12 +54,43 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
     formState: { errors: formErrors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (!props.isSignUpPage) login(data.email, data.password);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (!props.isSignUpPage) {
+      const loginResponse = await loginWithEmailPassword(
+        data.email,
+        data.password,
+      );
+      setAlert((state) => ({
+        ...state,
+        open: true,
+        message: loginResponse.message,
+        type: loginResponse.error ? 'ERROR' : 'SUCCESS',
+      }));
+    } else {
+      const signUpResponse = await signUpWithEmailPassword(
+        data.email,
+        data.username as string,
+        data.password,
+      );
+      setAlert((state) => ({
+        ...state,
+        open: true,
+        message: signUpResponse.message,
+        type: signUpResponse.error ? 'ERROR' : 'SUCCESS',
+      }));
+    }
   };
 
   return (
     <>
+      <Toast
+        onClose={() => {
+          setAlert((state) => ({ ...state, open: false }));
+        }}
+        message={alert.message}
+        type={alert.type}
+        open={alert.open}
+      />
       <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center pt-2">
         {props.heading}
       </h2>
