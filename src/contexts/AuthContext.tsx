@@ -1,5 +1,5 @@
 import React from 'react';
-import { checkAuthWithServer, logout as logoutFromServer } from 'adapters';
+import { checkAuthWithServer, logout as logoutFromServer } from 'adapters/auth';
 
 type AuthContextType = {
   loading: boolean;
