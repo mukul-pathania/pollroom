@@ -1,9 +1,9 @@
 import React from 'react';
 import LoginSignUp from 'components/LoginSignUp';
-import Header from 'components/header';
 import Head from 'next/head';
 import Toast from 'components/Toast';
 import { useRouter } from 'next/router';
+import Layout from 'layouts/main';
 
 type alertStateType = {
   open: boolean;
@@ -45,7 +45,6 @@ const login = (): JSX.Element => {
         <title>PollRoom - Login</title>
       </Head>
       <div className="bg-gradient-to-b from-white to-primary-700 pt-32 px-4 sm:px-6 lg:px-20 py-12">
-        <Header />
         <LoginSignUp
           heading="Welcome back"
           subHeading="You've been missed"
@@ -57,5 +56,7 @@ const login = (): JSX.Element => {
     </>
   );
 };
+
+login.layout = Layout;
 
 export default login;

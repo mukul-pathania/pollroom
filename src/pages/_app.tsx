@@ -3,11 +3,17 @@ import 'styles/tailwind.css';
 import 'styles/global.css';
 import 'typeface-dm-sans';
 import AuthProvider from 'contexts/AuthContext';
+import layout from 'layouts/default';
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+type Apptype = AppProps & { Component: { layout?: typeof layout } };
+
+function MyApp({ Component, pageProps }: Apptype): JSX.Element {
+  const Layout = Component.layout || layout;
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </AuthProvider>
   );
 }

@@ -1,7 +1,6 @@
 import LoginSignUp from 'components/LoginSignUp';
-import Header from 'components/header';
 import Head from 'next/head';
-
+import Layout from 'layouts/main';
 const signup = (): JSX.Element => {
   return (
     <>
@@ -9,7 +8,6 @@ const signup = (): JSX.Element => {
         <title>PollRoom - Sign up</title>
       </Head>
       <div className="bg-gradient-to-b from-white to-primary-700 pt-32 px-4 sm:px-6 lg:px-20 py-12">
-        <Header />
         <LoginSignUp
           heading="Welcome!"
           subHeading="Fill the form below to create your account"
@@ -22,5 +20,7 @@ const signup = (): JSX.Element => {
     </>
   );
 };
+
+signup.layout = Layout;
 
 export default signup;
