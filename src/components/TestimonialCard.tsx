@@ -12,7 +12,7 @@ const TestimonialCard = ({
   username,
 }: propTypes): JSX.Element => {
   return (
-    <div className="bg-white rounded-md mb-8 p-5 m-2 w-80 shadow hov hover:shadow-2xl transition-all duration-500">
+    <div className="bg-white rounded mb-8 p-5 m-2 w-80 shadow hov hover:shadow-2xl transition-all duration-500">
       <p className="text-gray-700">{text}</p>
       <div className="flex items-center mt-5">
         <img src={image} alt={name} className="block mr-4 max-h-8" />

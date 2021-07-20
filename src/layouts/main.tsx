@@ -8,21 +8,21 @@ const landingPageData = [
     label: 'Features',
     path: links.home.features,
     className:
-      'hover:text-secondary-700 text-black px-3 py-2 rounded-md font-main font-regular text-base',
+      'hover:text-accent-700 text-black px-3 py-2 rounded font-main font-regular text-base',
   },
   {
     key: 2,
     label: 'Create a room',
     path: '',
     className:
-      'hover:text-secondary-700 text-black px-3 py-2 rounded-md font-main font-regular text-base',
+      'hover:text-accent-700 text-black px-3 py-2 rounded font-main font-regular text-base',
   },
   {
     key: 3,
     label: 'Testimonials',
     path: links.home.testimonials,
     className:
-      'hover:text-secondary-700 text-black px-3 py-2 rounded-md font-main font-regular text-base',
+      'hover:text-accent-700 text-black px-3 py-2 rounded font-main font-regular text-base',
   },
 ];
 const headerData = [
@@ -31,7 +31,7 @@ const headerData = [
     label: 'Join a room',
     path: '',
     className:
-      'hover:text-secondary-700 text-primary-600 px-3 py-2 font-main font-medium text-base',
+      'hover:text-accent-700 text-primary-600 px-3 py-2 font-main font-medium text-base',
   },
   {
     key: 2,

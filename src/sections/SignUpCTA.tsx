@@ -28,7 +28,7 @@ const SignUp = (): JSX.Element => {
         </p>
         <a
           href="#"
-          className="text-accent-500 bg-white rounded-md py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300"
+          className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300"
         >
           Sign Up
         </a>

@@ -6,7 +6,7 @@ const ToggleButton = ({ isOpen, toggleOpen }: propsTypes): JSX.Element => {
       <button
         onClick={toggleOpen}
         type="button"
-        className="inline-flex items-center justify-center p-2 rounded-md"
+        className="inline-flex items-center justify-center p-2 rounded hover:bg-blueGray-300"
         aria-controls="mobile-menu"
         aria-expanded="false"
       >

@@ -103,13 +103,13 @@ const Contact = (): JSX.Element => {
             className="flex flex-col items-center md:items-start mb-12 md:mb-0"
           >
             <input
-              className="mb-5 p-4 placeholder-secondary-300 rounded-sm border-none outline-none bg-primary-500 text-white block w-10/12"
+              className="mb-5 p-4 placeholder-secondary-300 rounded border-none outline-none bg-primary-500 text-white block w-10/12"
               type="text"
               name="fullname"
               placeholder="Full Name"
             />
             <input
-              className="mb-5 p-4 placeholder-secondary-300 rounded-sm border-none outline-none bg-primary-500 text-white block w-10/12"
+              className="mb-5 p-4 placeholder-secondary-300 rounded border-none outline-none bg-primary-500 text-white block w-10/12"
               type="text"
               name="email"
               placeholder="Email"
@@ -118,10 +118,10 @@ const Contact = (): JSX.Element => {
               name="message"
               placeholder="Your Message"
               id=""
-              className="mb-5 p-4 placeholder-secondary-300 rounded-sm border-none resize-none outline-none bg-primary-500 h-56 text-white block w-10/12"
+              className="mb-5 p-4 placeholder-secondary-300 rounded border-none resize-none outline-none bg-primary-500 h-56 text-white block w-10/12"
             />
             <input
-              className="w-10/12 bg-accent-700 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded-sm hover:bg-accent-900 transition-all duration-500 hover:shadow-md"
+              className="w-10/12 bg-accent-700 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded hover:bg-accent-900 transition-all duration-500 hover:shadow-md"
               type="submit"
               value="Send Message"
             />

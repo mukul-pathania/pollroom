@@ -2,6 +2,7 @@ import { Transition } from '@headlessui/react';
 import MenuItem from './MenuItem';
 import clsx from 'clsx';
 import React from 'react';
+import links from 'link';
 
 type propTypes = {
   isOpen: boolean;
@@ -49,10 +50,16 @@ const MobileNav = ({
         </MenuItem>
       ))}
       <div className="flex flex-col items-center justify-around mt-4 space-y-2">
-        <a className="hover:text-secondary-700 text-primary-700 font-main font-medium text-base cursor-pointer">
+        <a
+          href={links.login}
+          className="hover:text-accent-700 text-primary-700 font-main font-medium text-base cursor-pointer"
+        >
           Login
         </a>
-        <a className="text-primary-700 border-primary-700 hover:text-secondary-700 hover:border-secondary-700 px-6 py-2 font-main rounded-md font-semibold text-lg border-2 transition duration-500 cursor-pointer">
+        <a
+          href={links.signup}
+          className="text-primary-700 border-primary-700 hover:text-accent-700 hover:border-accent-700 px-6 py-2 font-main rounded font-semibold text-lg border-2 transition duration-500 cursor-pointer"
+        >
           Sign Up
         </a>
       </div>

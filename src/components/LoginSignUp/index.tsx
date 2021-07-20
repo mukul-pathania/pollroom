@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { loginWithEmailPassword, signUpWithEmailPassword } from 'adapters/auth';
 import clsx from 'clsx';
 import Toast from 'components/Toast';
+import links from 'link';
 
 type propTypes = {
   heading: string;
@@ -98,7 +99,7 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
       <p className="text-2xl md:text-3xl lg:text-4xl text-gray-500 text-center font-semibold pt-2">
         {props.subHeading}
       </p>
-      <div className="bg-gray-200 rounded-md p-6 mt-8 w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto mb-8">
+      <div className="bg-gray-200 rounded p-6 mt-8 w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto mb-8">
         <div className="w-full">
           <p className="text-center text-gray-600 font-medium pb-2">
             {props.oAuthText}
@@ -245,7 +246,7 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
                   Forgot password?
                 </a>
                 <a
-                  href=""
+                  href={links.signup}
                   className="text-primary-600 hover:text-secondary-900 text-sm md:text-base"
                 >
                   Create new account

@@ -54,13 +54,13 @@ function Nav(props: propsType): JSX.Element {
           <div className="space-x-4 items-baseline hidden md:flex">
             <a
               href={links.login}
-              className="hover:text-secondary-700 font-main font-medium text-base cursor-pointer"
+              className="hover:text-accent-700 font-main font-medium text-base cursor-pointer"
             >
               Login
             </a>
             <a
               href={links.signup}
-              className="hover:text-white hover:bg-secondary-700 text-primary-700 px-6 py-2 font-main rounded-md font-semibold text-base border-primary-700 hover:border-secondary-700 border-2 transition-colors duration-500 cursor-pointer"
+              className="hover:text-white hover:bg-accent-700 text-primary-700 px-6 py-2 font-main rounded font-semibold text-base border-primary-700 hover:border-accent-700 border-2 transition-colors duration-500 cursor-pointer"
             >
               Sign Up
             </a>
