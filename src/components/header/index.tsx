@@ -1,12 +1,16 @@
 import * as React from 'react';
 import Logo from './Logo';
 import MenuItem from './MenuItem';
-import MenuData from './MenuData';
 import ToggleButton from './ToggleButton';
 import MobileNav from './MobileNav';
 import clsx from 'clsx';
+import links from 'link';
 
-function Nav(): JSX.Element {
+type propsType = {
+  menuData: { key: number; label: string; path: string; className: string }[];
+};
+
+function Nav(props: propsType): JSX.Element {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -36,18 +40,28 @@ function Nav(): JSX.Element {
           <Logo />
           <div className="hidden md:flex justify-between">
             <div className="ml-10 flex items-baseline space-x-4">
-              {MenuData.map((menuitem) => (
-                <MenuItem key={menuitem.key} path={menuitem.path}>
+              {props.menuData.map((menuitem) => (
+                <MenuItem
+                  key={menuitem.key}
+                  path={menuitem.path}
+                  className={menuitem.className}
+                >
                   {menuitem.label}
                 </MenuItem>
               ))}
             </div>
           </div>
           <div className="space-x-4 items-baseline hidden md:flex">
-            <a className="hover:text-secondary-700 font-main font-medium text-base cursor-pointer">
+            <a
+              href={links.login}
+              className="hover:text-secondary-700 font-main font-medium text-base cursor-pointer"
+            >
               Login
             </a>
-            <a className="hover:text-white hover:bg-secondary-700 text-primary-700 px-6 py-2 font-main rounded-md font-semibold text-base border-primary-700 hover:border-secondary-700 border-2 transition-colors duration-500 cursor-pointer">
+            <a
+              href={links.signup}
+              className="hover:text-white hover:bg-secondary-700 text-primary-700 px-6 py-2 font-main rounded-md font-semibold text-base border-primary-700 hover:border-secondary-700 border-2 transition-colors duration-500 cursor-pointer"
+            >
               Sign Up
             </a>
           </div>
@@ -58,6 +72,7 @@ function Nav(): JSX.Element {
         isOpen={isOpen}
         isScrolled={isScrolled}
         closeMobileNav={() => setIsOpen(false)}
+        menuData={props.menuData}
       />
     </nav>
   );

@@ -1,6 +1,5 @@
 import { Transition } from '@headlessui/react';
 import MenuItem from './MenuItem';
-import MenuData from './MenuData';
 import clsx from 'clsx';
 import React from 'react';
 
@@ -8,12 +7,14 @@ type propTypes = {
   isOpen: boolean;
   isScrolled: boolean;
   closeMobileNav: () => void;
+  menuData: { key: number; label: string; path: string; className: string }[];
 };
 
 const MobileNav = ({
   isOpen,
   isScrolled,
   closeMobileNav,
+  menuData,
 }: propTypes): JSX.Element => {
   React.useEffect(() => {
     if (isOpen) {
@@ -37,11 +38,12 @@ const MobileNav = ({
         isScrolled ? 'top-14' : 'top-16',
       )}
     >
-      {MenuData.map((menuitem) => (
+      {menuData.map((menuitem) => (
         <MenuItem
           key={menuitem.key}
           path={menuitem.path}
           closeMobileNav={closeMobileNav}
+          className={menuitem.className}
         >
           {menuitem.label}
         </MenuItem>
