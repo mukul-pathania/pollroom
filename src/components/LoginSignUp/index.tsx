@@ -90,6 +90,7 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
         message={alert.message}
         type={alert.type}
         open={alert.open}
+        autoCloseInterval={6000}
       />
       <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center pt-2">
         {props.heading}
@@ -103,26 +104,26 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
             {props.oAuthText}
           </p>
           <div className="flex justify-center items-center">
-            <button
-              className="flex items-center space-between py-2 px-4 m-4 bg-white text-primary-700 hover:bg-gray-300 transition-all duration-500 rounded shadow text-base font-medium"
-              role="button"
+            <a
+              href="http://localhost:5000/auth/google/login"
+              className="flex items-center space-between py-2 px-4 m-4 bg-white text-primary-700 hover:bg-gray-300 transition-all duration-500 rounded shadow text-base font-medium cursor-pointer"
             >
               <FcGoogle
                 style={{ display: 'inline-block', marginRight: '8px' }}
                 size={21}
               />
               Google
-            </button>
-            <button
-              className="flex items-center space-between py-2 px-4 m-4 bg-white text-primary-700 hover:bg-gray-300 transition-all duration-500 rounded shadow text-base font-medium"
-              role="button"
+            </a>
+            <a
+              href="http://localhost:5000/auth/google/login"
+              className="flex items-center space-between py-2 px-4 m-4 bg-white text-primary-700 hover:bg-gray-300 transition-all duration-500 rounded shadow text-base font-medium cursor-pointer"
             >
               <IoLogoGithub
                 style={{ display: 'inline-block', marginRight: '8px' }}
                 size={21}
               />
               Github
-            </button>
+            </a>
           </div>
           <hr className="w-full h-1 bg-primary-700 rounded-full my-2" />
           <div>
