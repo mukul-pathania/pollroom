@@ -29,18 +29,20 @@ const Toast = (props: propTypes): JSX.Element => {
   const timeOutRef = React.useRef<NodeJS.Timeout | undefined>(undefined);
 
   const closeHandler = (): void => {
+    timeOutRef.current = undefined;
     props.onClose();
   };
   React.useEffect(() => {
-    if (props.autoCloseInterval) {
+    if (props.open && props.autoCloseInterval) {
       timeOutRef.current = setTimeout(closeHandler, props.autoCloseInterval);
     }
     return () => {
       if (timeOutRef.current) {
         clearTimeout(timeOutRef.current);
+        timeOutRef.current = undefined;
       }
     };
-  }, []);
+  }, [props.open]);
 
   const CLOSE_ICON_COLOR =
     props.type === 'ERROR'
