@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import Toast from 'components/Toast';
 import links from 'link';
 import { useAuth } from 'contexts/AuthContext';
+import { useRouter } from 'next/router';
 
 type propTypes = {
   heading: string;
@@ -56,32 +57,46 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
     formState: { errors: formErrors },
   } = useForm<Inputs>();
   const { login } = useAuth();
-
+  const { push } = useRouter();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (!props.isSignUpPage) {
       const loginResponse = await loginWithEmailPassword(
         data.email,
         data.password,
       );
-      setAlert((state) => ({
-        ...state,
-        open: true,
-        message: loginResponse.message,
-        type: loginResponse.error ? 'ERROR' : 'SUCCESS',
-      }));
-      if (!loginResponse.error) login();
+      if (!loginResponse.error) {
+        login();
+        push(links.dashboard);
+      } else {
+        setAlert((state) => ({
+          ...state,
+          open: true,
+          message: loginResponse.message,
+          type: loginResponse.error ? 'ERROR' : 'SUCCESS',
+        }));
+      }
     } else {
       const signUpResponse = await signUpWithEmailPassword(
         data.email,
         data.username as string,
         data.password,
       );
-      setAlert((state) => ({
-        ...state,
-        open: true,
-        message: signUpResponse.message,
-        type: signUpResponse.error ? 'ERROR' : 'SUCCESS',
-      }));
+      if (!signUpResponse.error) {
+        push({
+          pathname: links.login,
+          query: {
+            redirectMessage:
+              'Check your inbox and verify your email before logging in',
+          },
+        });
+      } else {
+        setAlert((state) => ({
+          ...state,
+          open: true,
+          message: signUpResponse.message,
+          type: signUpResponse.error ? 'ERROR' : 'SUCCESS',
+        }));
+      }
     }
   };
 

@@ -7,4 +7,5 @@ export default {
   },
   login: '/auth/login',
   signup: '/auth/signup',
+  dashboard: '/dashboard',
 };
