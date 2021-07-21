@@ -1,3 +1,5 @@
+import links from 'link';
+
 const Background = (): JSX.Element => {
   return (
     <div className="absolute w-full h-full top-0 left-0">
@@ -27,7 +29,7 @@ const SignUp = (): JSX.Element => {
           Create polls for your meetings, webinars, events and more!
         </p>
         <a
-          href="#"
+          href={links.signup}
           className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300"
         >
           Sign Up

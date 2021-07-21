@@ -34,6 +34,7 @@ const LoginSignUpButtons = (): JSX.Element => {
 function Nav(props: propsType): JSX.Element {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const { isAuthenticated } = useAuth();
 
   const scrollHandler = (): void => {
     if (window.scrollY > 20) {
@@ -48,7 +49,6 @@ function Nav(props: propsType): JSX.Element {
       window.removeEventListener('scroll', scrollHandler);
     };
   }, []);
-  const { isAuthenticated } = useAuth();
 
   return (
     <nav
@@ -59,9 +59,11 @@ function Nav(props: propsType): JSX.Element {
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center justify-between w-full">
-          <Logo />
-          <div className="hidden md:flex justify-between">
-            <div className="ml-10 flex items-baseline space-x-4">
+          <div className="w-2/12 flex justify-start">
+            <Logo />
+          </div>
+          <div className="hidden md:flex justify-center flex-grow">
+            <div className="flex items-baseline space-x-4">
               {props.menuData.map((menuitem) => (
                 <MenuItem
                   key={menuitem.key}
@@ -73,7 +75,7 @@ function Nav(props: propsType): JSX.Element {
               ))}
             </div>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex justify-end w-2/12">
             {isAuthenticated ? <Menu /> : <LoginSignUpButtons />}
           </div>
         </div>
