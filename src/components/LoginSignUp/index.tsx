@@ -6,6 +6,7 @@ import { loginWithEmailPassword, signUpWithEmailPassword } from 'adapters/auth';
 import clsx from 'clsx';
 import Toast from 'components/Toast';
 import links from 'link';
+import { useAuth } from 'contexts/AuthContext';
 
 type propTypes = {
   heading: string;
@@ -54,6 +55,7 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
     watch,
     formState: { errors: formErrors },
   } = useForm<Inputs>();
+  const { login } = useAuth();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (!props.isSignUpPage) {
@@ -67,6 +69,7 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
         message: loginResponse.message,
         type: loginResponse.error ? 'ERROR' : 'SUCCESS',
       }));
+      if (!loginResponse.error) login();
     } else {
       const signUpResponse = await signUpWithEmailPassword(
         data.email,

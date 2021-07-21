@@ -4,6 +4,7 @@ import { checkAuthWithServer, logout as logoutFromServer } from 'adapters/auth';
 type AuthContextType = {
   loading: boolean;
   logout: () => void;
+  login: () => void;
   isAuthenticated: boolean;
 };
 
@@ -44,6 +45,13 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
       isAuthenticated: false,
     }));
   };
+  const login = () => {
+    setAuthState((authState) => ({
+      ...authState,
+      loading: false,
+      isAuthenticated: true,
+    }));
+  };
 
   React.useEffect(() => {
     checkAuth();
@@ -53,6 +61,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     loading: authState.loading,
     logout,
     isAuthenticated: authState.isAuthenticated,
+    login,
   };
   if (authState.loading) return <div>...loading</div>;
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
