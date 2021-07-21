@@ -3,6 +3,46 @@ import MenuItem from './MenuItem';
 import clsx from 'clsx';
 import React from 'react';
 import links from 'link';
+import { useAuth } from 'contexts/AuthContext';
+
+const LoginSignUpButtons = (): JSX.Element => {
+  return (
+    <div className="flex flex-col items-center justify-around mt-4 space-y-2">
+      <a
+        href={links.login}
+        className="hover:text-accent-700 text-primary-500 font-main font-medium text-base cursor-pointer"
+      >
+        Login
+      </a>
+      <a
+        href={links.signup}
+        className="text-primary-700 border-primary-500 hover:text-accent-700 hover:border-accent-700 px-6 py-2 font-main rounded font-semibold text-lg border-2 transition duration-500 cursor-pointer"
+      >
+        Sign Up
+      </a>
+    </div>
+  );
+};
+
+const Menu = (): JSX.Element => {
+  const { logout } = useAuth();
+  return (
+    <div className="flex flex-col items-center justify-around mt-4 space-y-4">
+      <a className="text-primary-500 font-medium hover:text-accent-600 cursor-pointer">
+        My Profile
+      </a>
+      <a className="text-primary-500 font-medium hover:text-accent-600 cursor-pointer">
+        Settings
+      </a>
+      <a
+        className="text-primary-500 font-medium hover:text-accent-600 cursor-pointer"
+        onClick={logout}
+      >
+        Logout
+      </a>
+    </div>
+  );
+};
 
 type propTypes = {
   isOpen: boolean;
@@ -25,6 +65,9 @@ const MobileNav = ({
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
+
+  const { isAuthenticated } = useAuth();
+
   return (
     <Transition
       show={isOpen}
@@ -49,20 +92,8 @@ const MobileNav = ({
           {menuitem.label}
         </MenuItem>
       ))}
-      <div className="flex flex-col items-center justify-around mt-4 space-y-2">
-        <a
-          href={links.login}
-          className="hover:text-accent-700 text-primary-700 font-main font-medium text-base cursor-pointer"
-        >
-          Login
-        </a>
-        <a
-          href={links.signup}
-          className="text-primary-700 border-primary-700 hover:text-accent-700 hover:border-accent-700 px-6 py-2 font-main rounded font-semibold text-lg border-2 transition duration-500 cursor-pointer"
-        >
-          Sign Up
-        </a>
-      </div>
+      <hr className="h-1 w-2/12 bg-gray-300 rounded-full my-2" />
+      {isAuthenticated ? <Menu /> : <LoginSignUpButtons />}
     </Transition>
   );
 };

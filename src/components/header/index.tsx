@@ -5,9 +5,30 @@ import ToggleButton from './ToggleButton';
 import MobileNav from './MobileNav';
 import clsx from 'clsx';
 import links from 'link';
+import { useAuth } from 'contexts/AuthContext';
+import Menu from './Menu';
 
 type propsType = {
   menuData: { key: number; label: string; path: string; className: string }[];
+};
+
+const LoginSignUpButtons = (): JSX.Element => {
+  return (
+    <div className="space-x-4 items-baseline hidden md:flex">
+      <a
+        href={links.login}
+        className="hover:text-accent-700 font-main font-medium text-base cursor-pointer"
+      >
+        Login
+      </a>
+      <a
+        href={links.signup}
+        className="hover:text-white hover:bg-accent-700 text-primary-700 px-6 py-2 font-main rounded font-semibold text-base border-primary-700 hover:border-accent-700 border-2 transition-colors duration-500 cursor-pointer"
+      >
+        Sign Up
+      </a>
+    </div>
+  );
 };
 
 function Nav(props: propsType): JSX.Element {
@@ -27,6 +48,7 @@ function Nav(props: propsType): JSX.Element {
       window.removeEventListener('scroll', scrollHandler);
     };
   }, []);
+  const { isAuthenticated } = useAuth();
 
   return (
     <nav
@@ -51,19 +73,8 @@ function Nav(props: propsType): JSX.Element {
               ))}
             </div>
           </div>
-          <div className="space-x-4 items-baseline hidden md:flex">
-            <a
-              href={links.login}
-              className="hover:text-accent-700 font-main font-medium text-base cursor-pointer"
-            >
-              Login
-            </a>
-            <a
-              href={links.signup}
-              className="hover:text-white hover:bg-accent-700 text-primary-700 px-6 py-2 font-main rounded font-semibold text-base border-primary-700 hover:border-accent-700 border-2 transition-colors duration-500 cursor-pointer"
-            >
-              Sign Up
-            </a>
+          <div className="hidden md:block">
+            {isAuthenticated ? <Menu /> : <LoginSignUpButtons />}
           </div>
         </div>
         <ToggleButton isOpen={isOpen} toggleOpen={() => setIsOpen(!isOpen)} />
