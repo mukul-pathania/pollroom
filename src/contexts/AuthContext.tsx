@@ -1,5 +1,6 @@
 import React from 'react';
 import { checkAuthWithServer, logout as logoutFromServer } from 'adapters/auth';
+import PageLoadingSkeleton from 'components/PageLoadingSkeleton';
 
 type AuthContextType = {
   loading: boolean;
@@ -63,8 +64,12 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     isAuthenticated: authState.isAuthenticated,
     login,
   };
-  if (authState.loading) return <div>...loading</div>;
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  if (authState.loading)
+    return <PageLoadingSkeleton loading={authState.loading} />;
+  else
+    return (
+      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    );
 };
 
 const useAuth = (): AuthContextType => {
