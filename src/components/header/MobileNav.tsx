@@ -78,8 +78,8 @@ const MobileNav = ({
       leaveFrom="opacity-100 translate-x-0"
       leaveTo="opacity-0 translate-x-full"
       className={clsx(
-        'md:hidden fixed py-8 left-0 bg-white w-full flex flex-col items-center justify-around',
-        isScrolled ? 'top-14' : 'top-16',
+        'headerBreakpoint:hidden fixed py-8 left-0 bg-white w-full flex flex-col items-center justify-around',
+        isScrolled ? 'top-14' : 'top-18',
       )}
     >
       {menuData.map((menuitem) => (

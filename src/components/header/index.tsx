@@ -43,6 +43,7 @@ function Nav(props: propsType): JSX.Element {
       return setIsScrolled(false);
     }
   };
+
   React.useEffect(() => {
     window.addEventListener('scroll', scrollHandler);
     return () => {
@@ -59,10 +60,10 @@ function Nav(props: propsType): JSX.Element {
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center justify-between w-full">
-          <div className="w-2/12 flex justify-start">
+          <div className="w-1/4 flex justify-start">
             <Logo />
           </div>
-          <div className="hidden md:flex justify-center flex-grow">
+          <div className="hidden headerBreakpoint:flex justify-center flex-grow">
             <div className="flex items-baseline space-x-4">
               {props.menuData.map((menuitem) => (
                 <MenuItem
@@ -75,7 +76,7 @@ function Nav(props: propsType): JSX.Element {
               ))}
             </div>
           </div>
-          <div className="hidden md:flex justify-end w-2/12">
+          <div className="hidden headerBreakpoint:flex justify-end w-1/4">
             {isAuthenticated ? <Menu /> : <LoginSignUpButtons />}
           </div>
         </div>

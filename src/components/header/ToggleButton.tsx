@@ -2,7 +2,7 @@ type propsTypes = { isOpen: boolean; toggleOpen: () => void };
 
 const ToggleButton = ({ isOpen, toggleOpen }: propsTypes): JSX.Element => {
   return (
-    <div className="-mr-2 flex md:hidden">
+    <div className="-mr-2 flex headerBreakpoint:hidden">
       <button
         onClick={toggleOpen}
         type="button"

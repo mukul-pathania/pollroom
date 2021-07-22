@@ -8,6 +8,14 @@ module.exports = {
     fontFamily: {
       main: ['DM Sans'],
     },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      headerBreakpoint: '900px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
     colors: {
       blueGray: colors.blueGray,
       coolGray: colors.coolGray,
