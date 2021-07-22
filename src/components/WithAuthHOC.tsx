@@ -9,13 +9,13 @@ const withAuthHOC = (props: propTypes): JSX.Element => {
   const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
   React.useEffect(() => {
-    if (!isAuthenticated) {
+    if (!loading && !isAuthenticated) {
       router.push({
         pathname: links.login,
         query: { redirectMessage: 'You need to login first' },
       });
     }
-  }, []);
+  }, [loading, isAuthenticated]);
   return (
     <>
       <PageLoadingSkeleton loading={loading}>

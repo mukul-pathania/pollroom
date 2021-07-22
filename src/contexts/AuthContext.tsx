@@ -6,17 +6,20 @@ type AuthContextType = {
   loading: boolean;
   logout: () => void;
   login: () => void;
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | undefined;
 };
-
+type AuthStateType = {
+  loading: boolean;
+  isAuthenticated: boolean | undefined;
+};
 type AuthProviderProps = { children: React.ReactNode };
 
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
-  const [authState, setAuthState] = React.useState({
+  const [authState, setAuthState] = React.useState<AuthStateType>({
     loading: true,
-    isAuthenticated: false,
+    isAuthenticated: undefined,
   });
 
   const checkAuth = async (): Promise<void> => {
