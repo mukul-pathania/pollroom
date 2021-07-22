@@ -2,9 +2,9 @@ import heroImage from 'assets/images/asset1.svg';
 
 const Hero = (): JSX.Element => {
   return (
-    <section className="flex flex-col md:flex-row justify-between items-center md:items-start mx-auto px-4 pt-24 md:pt-48 sm:px-6 lg:px-20 bg-gray-100">
+    <section className="flex flex-col md:flex-row justify-between items-center md:items-start mx-auto px-4 pt-24 md:pt-32 lg:pt-48 sm:px-6 lg:px-20 bg-gray-100">
       <div className="md:pr-8 md:w-1/2">
-        <h3 className="font-bold text-4xl md:text-5xl lg:text-6xl text-center md:text-left mb-5">
+        <h3 className="font-bold text-3xl md:text-4xl lg:text-6xl text-center md:text-left mb-5">
           A better way to
           <span className="text-secondary-600"> create &#38; organize </span>
           multiple
@@ -18,7 +18,7 @@ const Hero = (): JSX.Element => {
         </p>
         <button
           role="button"
-          className="mx-auto md:mx-0 block px-6 py-2 md:py-4 rounded font-bold text-xl md:text-2xl text-white bg-primary-600 hover:bg-accent-700 transition-all duration-500 transform md:hover:scale-105"
+          className="mx-auto md:mx-0 md:mb-12 block px-6 py-2 md:py-4 rounded font-bold text-xl md:text-2xl text-white bg-primary-600 hover:bg-accent-700 transition-all duration-500 transform md:hover:scale-105"
         >
           Create a room
         </button>
@@ -27,7 +27,7 @@ const Hero = (): JSX.Element => {
         <img
           src={heroImage.src}
           alt="banner"
-          className="md:-mt-24 block mt-8 max-h-60 sm:max-h-96 md:max-h-full"
+          className="lg:-mt-24 md:-mt-12 block mt-8 max-h-60 sm:max-h-96 md:max-h-full"
         />
       </div>
     </section>
