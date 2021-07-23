@@ -62,7 +62,7 @@ const Toast = (props: propTypes): JSX.Element => {
       leaveTo="opacity-0"
       className="fixed w-screen z-50 top-0 left-0 flex items-center justify-center"
     >
-      <div className="mt-24 p-4 space-x-4 flex justify-center items-center bg-white rounded-full shadow-lg">
+      <div className="mt-12 ring-2 ring-black ring-opacity-5 p-4 space-x-4 flex justify-center items-center bg-white rounded-full shadow-lg">
         {props.type === 'ERROR' && <ErrorIcon />}
         {props.type === 'INFO' && <InfoIcon />}
         {props.type === 'SUCCESS' && <SuccessIcon />}
