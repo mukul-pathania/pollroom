@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import links from 'link';
 import { useRouter } from 'next/router';
 import { useToast } from 'contexts/ToastContext';
+import Error from 'components/ErrorMessageInput';
 
 type propTypes = {
   heading: string;
@@ -30,11 +31,6 @@ const ERROR_MESSAGES = {
   userNameLength: 'Username must be atleast 5 characters',
   passwordsMatch: 'Passwords should match',
   emailRequired: 'Email is required',
-};
-
-type errorMessageType = { errorMessage?: string };
-const Error = ({ errorMessage }: errorMessageType): JSX.Element => {
-  return <p className="text-red-500 pt-2">{errorMessage}</p>;
 };
 
 const SignUpPage = (props: propTypes): JSX.Element => {

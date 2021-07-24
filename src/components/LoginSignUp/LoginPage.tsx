@@ -8,6 +8,7 @@ import links from 'link';
 import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
 import { useToast } from 'contexts/ToastContext';
+import Error from 'components/ErrorMessageInput';
 
 type propTypes = {
   heading: string;
@@ -25,11 +26,6 @@ type Inputs = {
 const ERROR_MESSAGES = {
   passwordRequired: 'Password is required',
   emailRequired: 'Email is required',
-};
-
-type errorMessageType = { errorMessage?: string };
-const Error = ({ errorMessage }: errorMessageType): JSX.Element => {
-  return <p className="text-red-500 pt-2">{errorMessage}</p>;
 };
 
 const LoginPage = (props: propTypes): JSX.Element => {
