@@ -35,6 +35,7 @@ const ERROR_MESSAGES = {
 
 const SignUpPage = (props: propTypes): JSX.Element => {
   const { setToast } = useToast();
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -43,6 +44,7 @@ const SignUpPage = (props: propTypes): JSX.Element => {
   } = useForm<Inputs>();
   const { push } = useRouter();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setButtonDisabled(true);
     const signUpResponse = await signUpWithEmailPassword(
       data.email,
       data.username as string,
@@ -66,6 +68,7 @@ const SignUpPage = (props: propTypes): JSX.Element => {
         5000,
       );
     }
+    setButtonDisabled(false);
   };
 
   return (
@@ -202,9 +205,12 @@ const SignUpPage = (props: propTypes): JSX.Element => {
                 <Error errorMessage={formErrors['confirm-password'].message} />
               )}
               <input
-                className="mx-auto mt-8 block bg-primary-700 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded hover:bg-secondary-900 transition-all duration-500 hover:shadow-md"
+                className="mx-auto mt-8 block bg-primary-700 disabled:bg-gray-400 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded hover:bg-secondary-900 transition-all duration-500 hover:shadow-md"
                 type="submit"
                 value={props.buttonText}
+                disabled={
+                  buttonDisabled || Object.keys(formErrors).length !== 0
+                }
               />
             </form>
           </div>

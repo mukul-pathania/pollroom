@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head';
 import main from 'layouts/main';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -9,6 +10,7 @@ type Inputs = { email: string };
 const ERROR_MESSAGES = { emailRequired: 'Email is required' };
 
 const PasswordResetPage = (): JSX.Element => {
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -16,7 +18,9 @@ const PasswordResetPage = (): JSX.Element => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    setButtonDisabled(true);
     console.log(data);
+    setButtonDisabled(false);
   };
   return (
     <>
@@ -53,8 +57,11 @@ const PasswordResetPage = (): JSX.Element => {
                 <Error errorMessage={formErrors.email.message} />
               )}
               <input
-                className="mx-auto mt-8 block bg-primary-700 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded hover:bg-secondary-900 transition-all duration-500 hover:shadow-md w-full"
+                className="mx-auto mt-8 block bg-primary-700 disabled:bg-gray-400 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded hover:bg-secondary-900 transition-all duration-500 hover:shadow-md w-full"
                 type="submit"
+                disabled={
+                  buttonDisabled || Object.keys(formErrors).length !== 0
+                }
                 value="Send Email"
               />
             </form>

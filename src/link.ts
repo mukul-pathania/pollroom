@@ -8,4 +8,6 @@ export default {
   login: '/auth/login',
   signup: '/auth/signup',
   dashboard: '/dashboard',
+  resetPassword: '/auth/password/reset',
+  changePassword: '/auth/password/reset/change',
 };

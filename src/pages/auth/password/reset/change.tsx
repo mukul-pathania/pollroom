@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head';
 import main from 'layouts/main';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -13,6 +14,7 @@ const ERROR_MESSAGES = {
 };
 
 const PasswordChangePage = (): JSX.Element => {
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -21,7 +23,9 @@ const PasswordChangePage = (): JSX.Element => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    setButtonDisabled(true);
     console.log(data);
+    setButtonDisabled(false);
   };
 
   return (
@@ -91,7 +95,10 @@ const PasswordChangePage = (): JSX.Element => {
               )}
 
               <input
-                className="mx-auto mt-8 block bg-primary-700 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded hover:bg-secondary-900 transition-all duration-500 hover:shadow-md w-full"
+                className="mx-auto mt-8 block bg-primary-700 disabled:bg-gray-400 text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded hover:bg-secondary-900 transition-all duration-500 hover:shadow-md w-full"
+                disabled={
+                  buttonDisabled || Object.keys(formErrors).length !== 0
+                }
                 type="submit"
                 value="Change Password"
               />

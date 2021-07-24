@@ -81,7 +81,9 @@ module.exports = {
   },
   extend: {},
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['disabled'],
+    },
   },
   plugins: [],
 };
