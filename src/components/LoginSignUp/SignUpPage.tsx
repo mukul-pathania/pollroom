@@ -2,10 +2,9 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { IoLogoGithub } from 'react-icons/io';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { loginWithEmailPassword, signUpWithEmailPassword } from 'adapters/auth';
+import { signUpWithEmailPassword } from 'adapters/auth';
 import clsx from 'clsx';
 import links from 'link';
-import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
 import { useToast } from 'contexts/ToastContext';
 
@@ -15,20 +14,20 @@ type propTypes = {
   oAuthText: string;
   credentialsText: string;
   buttonText: string;
-  isSignUpPage?: boolean;
 };
 
 type Inputs = {
-  username?: string;
+  username: string;
   email: string;
   password: string;
-  'confirm-password'?: string;
+  'confirm-password': string;
 };
 
 const ERROR_MESSAGES = {
   passwordLength: 'Password must have length of atleast 6',
   passwordRequired: 'Password is required',
   userNameRequired: 'Username is required',
+  userNameLength: 'Username must be atleast 5 characters',
   passwordsMatch: 'Passwords should match',
   emailRequired: 'Email is required',
 };
@@ -38,7 +37,7 @@ const Error = ({ errorMessage }: errorMessageType): JSX.Element => {
   return <p className="text-red-500 pt-2">{errorMessage}</p>;
 };
 
-const LoginSignUp = (props: propTypes): JSX.Element => {
+const SignUpPage = (props: propTypes): JSX.Element => {
   const { setToast } = useToast();
   const {
     register,
@@ -46,63 +45,30 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
     watch,
     formState: { errors: formErrors },
   } = useForm<Inputs>();
-  const { login } = useAuth();
   const { push } = useRouter();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    if (!props.isSignUpPage) {
-      const loginResponse = await loginWithEmailPassword(
-        data.email,
-        data.password,
+    const signUpResponse = await signUpWithEmailPassword(
+      data.email,
+      data.username as string,
+      data.password,
+    );
+    if (!signUpResponse.error) {
+      push(links.login);
+      setToast(
+        true,
+        'Check your inbox and verify your email before logging in',
+        'INFO',
+        links.login,
+        5000,
       );
-      if (!loginResponse.error) {
-        login();
-        setToast(
-          true,
-          'Logged in successfully',
-          'SUCCESS',
-          links.dashboard,
-          5000,
-        );
-        push(links.dashboard);
-      } else {
-        setToast(
-          true,
-          loginResponse.message,
-          loginResponse.error ? 'ERROR' : 'SUCCESS',
-          links.login,
-          5000,
-        );
-      }
     } else {
-      const signUpResponse = await signUpWithEmailPassword(
-        data.email,
-        data.username as string,
-        data.password,
+      setToast(
+        true,
+        signUpResponse.message,
+        signUpResponse.error ? 'ERROR' : 'SUCCESS',
+        links.signup,
+        5000,
       );
-      if (!signUpResponse.error) {
-        push(links.login);
-        setToast(
-          true,
-          'Check your inbox and verify your email before logging in',
-          'INFO',
-          links.login,
-          5000,
-        );
-      } else {
-        setToast(
-          true,
-          signUpResponse.message,
-          signUpResponse.error ? 'ERROR' : 'SUCCESS',
-          links.signup,
-          5000,
-        );
-        // setAlert((state) => ({
-        //   ...state,
-        //   open: true,
-        //   message: signUpResponse.message,
-        //   type: signUpResponse.error ? 'ERROR' : 'SUCCESS',
-        // }));
-      }
     }
   };
 
@@ -147,24 +113,26 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
               {props.credentialsText}
             </p>
             <form onSubmit={handleSubmit(onSubmit)}>
-              {props.isSignUpPage && (
-                <input
-                  className={clsx(
-                    'mx-auto mt-6 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg',
-                    formErrors.username
-                      ? 'form-error-message'
-                      : 'focus:ring-2 focus:ring-primary-700',
-                  )}
-                  type="text"
-                  {...register('username', {
-                    required: {
-                      value: true,
-                      message: ERROR_MESSAGES.userNameRequired,
-                    },
-                  })}
-                  placeholder="Username"
-                />
-              )}
+              <input
+                className={clsx(
+                  'mx-auto mt-6 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg',
+                  formErrors.username
+                    ? 'form-error-message'
+                    : 'focus:ring-2 focus:ring-primary-700',
+                )}
+                type="text"
+                {...register('username', {
+                  required: {
+                    value: true,
+                    message: ERROR_MESSAGES.userNameRequired,
+                  },
+                  minLength: {
+                    value: 5,
+                    message: ERROR_MESSAGES.userNameLength,
+                  },
+                })}
+                placeholder="Username"
+              />
               {formErrors.username && (
                 <Error errorMessage={formErrors.username.message} />
               )}
@@ -200,49 +168,40 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
                     value: true,
                     message: ERROR_MESSAGES.passwordRequired,
                   },
-                  // Apply this condition only on signup page
-                  ...(props.isSignUpPage && {
-                    minLength: {
-                      value: 6,
-                      message: ERROR_MESSAGES.passwordLength,
-                    },
-                  }),
+                  minLength: {
+                    value: 6,
+                    message: ERROR_MESSAGES.passwordLength,
+                  },
                 })}
                 placeholder="Password"
               />
               {formErrors.password && (
                 <Error errorMessage={formErrors.password.message} />
               )}
-              {props.isSignUpPage && (
-                <input
-                  className={clsx(
-                    'mx-auto mt-6 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg',
-                    formErrors['confirm-password']
-                      ? 'form-error-message'
-                      : 'focus:ring-2 focus:ring-primary-700',
-                  )}
-                  type="password"
-                  {...register('confirm-password', {
-                    required: {
-                      value: true,
-                      message: ERROR_MESSAGES.passwordRequired,
+              <input
+                className={clsx(
+                  'mx-auto mt-6 p-4 font-medium placeholder-gray-500 rounded border-none outline-none bg-white text-primary-700 block w-full shadow-lg',
+                  formErrors['confirm-password']
+                    ? 'form-error-message'
+                    : 'focus:ring-2 focus:ring-primary-700',
+                )}
+                type="password"
+                {...register('confirm-password', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                  validate: {
+                    matchPassword: (value) => {
+                      return (
+                        value === watch('password') ||
+                        ERROR_MESSAGES.passwordsMatch
+                      );
                     },
-                    minLength: {
-                      value: 6,
-                      message: ERROR_MESSAGES.passwordLength,
-                    },
-                    validate: {
-                      matchPassword: (value) => {
-                        return (
-                          value === watch('password') ||
-                          ERROR_MESSAGES.passwordsMatch
-                        );
-                      },
-                    },
-                  })}
-                  placeholder="Confirm Password"
-                />
-              )}
+                  },
+                })}
+                placeholder="Confirm Password"
+              />
               {formErrors['confirm-password'] && (
                 <Error errorMessage={formErrors['confirm-password'].message} />
               )}
@@ -252,22 +211,6 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
                 value={props.buttonText}
               />
             </form>
-            {!props.isSignUpPage && (
-              <div className="flex w-full justify-between pt-8">
-                <a
-                  href=""
-                  className="text-primary-600 hover:text-secondary-900 text-sm md:text-base"
-                >
-                  Forgot password?
-                </a>
-                <a
-                  href={links.signup}
-                  className="text-primary-600 hover:text-secondary-900 text-sm md:text-base"
-                >
-                  Create new account
-                </a>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -275,4 +218,4 @@ const LoginSignUp = (props: propTypes): JSX.Element => {
   );
 };
 
-export default LoginSignUp;
+export default SignUpPage;

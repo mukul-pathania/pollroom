@@ -5,7 +5,7 @@ import PageLoadingSkeleton from 'components/PageLoadingSkeleton';
 type AuthContextType = {
   loading: boolean;
   logout: () => void;
-  login: () => void;
+  setLoggedIn: () => void;
   isAuthenticated: boolean | undefined;
 };
 type AuthStateType = {
@@ -49,7 +49,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
       isAuthenticated: false,
     }));
   };
-  const login = () => {
+  const setLoggedIn = () => {
     setAuthState((authState) => ({
       ...authState,
       loading: false,
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     loading: authState.loading,
     logout,
     isAuthenticated: authState.isAuthenticated,
-    login,
+    setLoggedIn,
   };
   if (authState.loading)
     return <PageLoadingSkeleton loading={authState.loading} />;
