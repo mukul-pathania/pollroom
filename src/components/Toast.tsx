@@ -62,19 +62,25 @@ const Toast = (props: propTypes): JSX.Element => {
       leaveTo="opacity-0"
       className="fixed w-screen z-50 top-0 left-0 flex items-center justify-center"
     >
-      <div className="mt-12 ring-2 ring-black ring-opacity-5 p-4 space-x-4 flex justify-center items-center bg-white rounded-full shadow-lg">
-        {props.type === 'ERROR' && <ErrorIcon />}
-        {props.type === 'INFO' && <InfoIcon />}
-        {props.type === 'SUCCESS' && <SuccessIcon />}
-        <div className="flex flex-col">
-          <p className="text-center font-medium">{props.message}</p>
+      <div className="mx-12 mt-12 ring-1 ring-primary-900 ring-opacity-5 p-4 space-x-4 flex justify-center items-center bg-white rounded-full shadow-2xl">
+        <div>
+          {props.type === 'ERROR' && <ErrorIcon />}
+          {props.type === 'INFO' && <InfoIcon />}
+          {props.type === 'SUCCESS' && <SuccessIcon />}
         </div>
-        <MdClose
-          onClick={props.onClose}
-          style={{ fill: CLOSE_ICON_COLOR, padding: '4px' }}
-          size={28}
-          className="cursor-pointer hover:bg-gray-300 rounded-full"
-        />
+        <div className="flex flex-col">
+          <p className="text-center font-medium text-sm md:text-base">
+            {props.message}
+          </p>
+        </div>
+        <div>
+          <MdClose
+            onClick={props.onClose}
+            style={{ fill: CLOSE_ICON_COLOR, padding: '4px', display: 'block' }}
+            size={28}
+            className="cursor-pointer hover:bg-gray-300 rounded-full"
+          />
+        </div>
       </div>
     </Transition>
   );
