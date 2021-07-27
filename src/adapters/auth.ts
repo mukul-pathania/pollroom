@@ -77,3 +77,21 @@ export const signUpWithEmailPassword = async (
     };
   }
 };
+
+type verifyEmailResponse = { message: string; error: boolean };
+export const verifyEmail = async (
+  token: string,
+): Promise<verifyEmailResponse> => {
+  try {
+    const response = await api.post<verifyEmailResponse>('/auth/email/verify', {
+      token,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return {
+      error: true,
+      message: 'An error occured while processing your request',
+    };
+  }
+};
