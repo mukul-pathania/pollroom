@@ -49,7 +49,6 @@ export const loginWithEmailPassword = async (
     });
     return response.data;
   } catch (error) {
-    console.log(error);
     return {
       message: 'An error occured while processing your request',
       error: true,
@@ -70,7 +69,6 @@ export const signUpWithEmailPassword = async (
     });
     return response.data;
   } catch (error) {
-    console.log(error);
     return {
       error: true,
       message: 'An error occured while processing your request',
@@ -88,7 +86,46 @@ export const verifyEmail = async (
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    return {
+      error: true,
+      message: 'An error occured while processing your request',
+    };
+  }
+};
+
+type sendResetPasswordResponse = { message: string; error: boolean };
+export const sendResetPasswordEmail = async (
+  email: string,
+): Promise<sendResetPasswordResponse> => {
+  try {
+    const response = await api.post<sendResetPasswordResponse>(
+      '/auth/password/reset/email',
+      { email },
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      error: true,
+      message: 'An error occured while processing your request',
+    };
+  }
+};
+
+type resetPasswordResponse = { message: string; error: boolean };
+export const resetPassword = async (
+  token: string,
+  password: string,
+): Promise<resetPasswordResponse> => {
+  try {
+    const response = await api.post<resetPasswordResponse>(
+      '/auth/password/reset/change',
+      {
+        token,
+        password,
+      },
+    );
+    return response.data;
+  } catch (error) {
     return {
       error: true,
       message: 'An error occured while processing your request',

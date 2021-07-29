@@ -4,24 +4,48 @@ import main from 'layouts/main';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import clsx from 'clsx';
 import Error from 'components/ErrorMessageInput';
-
+import link from 'link';
+import { useRouter } from 'next/router';
+import { useToast } from 'contexts/ToastContext';
+import { sendResetPasswordEmail } from 'adapters/auth';
 type Inputs = { email: string };
 
 const ERROR_MESSAGES = { emailRequired: 'Email is required' };
 
 const PasswordResetPage = (): JSX.Element => {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const router = useRouter();
+  const { setToast } = useToast();
   const {
     register,
     handleSubmit,
     formState: { errors: formErrors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setButtonDisabled(true);
-    console.log(data);
-    setButtonDisabled(false);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      setButtonDisabled(true);
+      const response = await sendResetPasswordEmail(data.email);
+      setToast(
+        true,
+        response.message,
+        response.error ? 'ERROR' : 'SUCCESS',
+        link.login,
+        5000,
+      );
+      router.push(link.login);
+      setButtonDisabled(false);
+    } catch (error) {
+      setToast(
+        true,
+        'An error occured while processing your request',
+        'ERROR',
+        link.changePassword,
+        5000,
+      );
+    }
   };
+
   return (
     <>
       <Head>

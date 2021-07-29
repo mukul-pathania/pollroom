@@ -3,7 +3,12 @@ import Head from 'next/head';
 import main from 'layouts/main';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import clsx from 'clsx';
+import querystring from 'querystring';
+import { useToast } from 'contexts/ToastContext';
 import Error from 'components/ErrorMessageInput';
+import { resetPassword } from 'adapters/auth';
+import { useRouter } from 'next/router';
+import link from 'link';
 
 type Inputs = { password: string; 'confirm-password': string };
 
@@ -15,6 +20,8 @@ const ERROR_MESSAGES = {
 
 const PasswordChangePage = (): JSX.Element => {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const router = useRouter();
+  const { setToast } = useToast();
   const {
     register,
     handleSubmit,
@@ -22,10 +29,43 @@ const PasswordChangePage = (): JSX.Element => {
     formState: { errors: formErrors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setButtonDisabled(true);
-    console.log(data);
-    setButtonDisabled(false);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      setButtonDisabled(true);
+      const queryParams = querystring.parse(location.hash.substring(1));
+      if (queryParams.token) {
+        const response = await resetPassword(
+          queryParams.token as string,
+          data.password,
+        );
+        setToast(
+          true,
+          response.message,
+          response.error ? 'ERROR' : 'SUCCESS',
+          link.login,
+          5000,
+        );
+        router.push(link.login);
+      } else {
+        setToast(
+          true,
+          'You might have clicked on an invalid link',
+          'ERROR',
+          link.signup,
+          5000,
+        );
+        router.push(link.signup);
+      }
+      setButtonDisabled(false);
+    } catch (error) {
+      setToast(
+        true,
+        'An error occured while processing your request',
+        'ERROR',
+        link.resetPassword,
+        5000,
+      );
+    }
   };
 
   return (
