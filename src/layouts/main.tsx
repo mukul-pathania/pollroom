@@ -2,6 +2,7 @@ import Header from 'components/header';
 import { useRouter } from 'next/router';
 import links from 'link';
 import Footer from 'components/footer';
+import link from 'link';
 
 const landingPageData = [
   {
@@ -37,7 +38,7 @@ const headerData = [
   {
     key: 2,
     label: 'Create a room',
-    path: '',
+    path: link.createNewRoom,
     className:
       'hover:text-accent-700 text-primary-500 px-3 py-2 font-main font-medium text-base',
   },

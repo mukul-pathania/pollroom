@@ -10,4 +10,5 @@ export default {
   dashboard: '/dashboard',
   resetPassword: '/auth/password/reset',
   changePassword: '/auth/password/reset/change',
+  createNewRoom: '/room/new',
 };
