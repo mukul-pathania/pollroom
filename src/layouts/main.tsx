@@ -1,6 +1,7 @@
 import Header from 'components/header';
 import { useRouter } from 'next/router';
 import links from 'link';
+import Footer from 'components/footer';
 
 const landingPageData = [
   {
@@ -51,6 +52,7 @@ const Layout = ({ children }: propsType): JSX.Element => {
     <>
       <Header menuData={menuData} />
       {children}
+      <Footer />
     </>
   );
 };
