@@ -3,7 +3,7 @@ import AvatarImage from 'assets/images/avatarMenu.png';
 import { useAuth } from 'contexts/AuthContext';
 
 const Menu = (): JSX.Element => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <Popover className="relative">
       <Popover.Button>
@@ -21,8 +21,8 @@ const Menu = (): JSX.Element => {
         <Popover.Panel className="absolute z-10 transform -left-full top-full mt-2 -translate-x-1/2">
           <div className="rounded bg-gray-50 shadow-2xl ring-1 ring-black ring-opacity-5">
             <div className="py-4 px-8 flex flex-col space-y-2">
-              <p className="text-primary-400 font-medium">Username</p>
-              <p className="text-gray-500 font-medium">email@email.com</p>
+              <p className="text-primary-400 font-medium">{user.username}</p>
+              <p className="text-gray-500 font-medium">{user.email}</p>
             </div>
             <hr className="bg-black w-10/12 mx-auto" />
             <div className="py-4 px-8 flex flex-col space-y-2">

@@ -6,10 +6,12 @@ type AuthContextType = {
   loading: boolean;
   logout: () => void;
   setLoggedIn: () => void;
+  user: { username: string; email: string };
   isAuthenticated: boolean | undefined;
 };
 type AuthStateType = {
   loading: boolean;
+  user: { username: string; email: string };
   isAuthenticated: boolean | undefined;
 };
 type AuthProviderProps = { children: React.ReactNode };
@@ -20,15 +22,20 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [authState, setAuthState] = React.useState<AuthStateType>({
     loading: true,
     isAuthenticated: undefined,
+    user: { username: '', email: '' },
   });
 
   const checkAuth = async (): Promise<void> => {
     try {
       setAuthState((authState) => ({ ...authState, loading: true }));
-      const isAuthenticated = await checkAuthWithServer();
+      const response = await checkAuthWithServer();
       setAuthState((authState) => ({
         ...authState,
-        isAuthenticated,
+        isAuthenticated: response.isAuthenticated,
+        user: {
+          email: response.email,
+          username: response.username,
+        },
         loading: false,
       }));
     } catch (error) {
@@ -62,6 +69,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   }, []);
 
   const value: AuthContextType = {
+    user: authState.user,
     loading: authState.loading,
     logout,
     isAuthenticated: authState.isAuthenticated,

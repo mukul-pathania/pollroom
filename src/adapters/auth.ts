@@ -4,17 +4,25 @@ type authResponse = {
   message: string;
   isAuthenticated: boolean;
   error: boolean;
+  username: string;
+  email: string;
 };
 
-export const checkAuthWithServer = async (): Promise<boolean> => {
+export const checkAuthWithServer = async (): Promise<authResponse> => {
   try {
     const response = await api.get<authResponse>('auth/verify');
     if (response.data.error) {
       throw new Error(response.data.message);
     }
-    return response.data.isAuthenticated;
+    return response.data;
   } catch (error) {
-    return false;
+    return {
+      message: 'An error occured while processing your request',
+      isAuthenticated: false,
+      error: true,
+      username: '',
+      email: '',
+    };
   }
 };
 
