@@ -6,7 +6,7 @@ import PageLoadingSkeleton from './PageLoadingSkeleton';
 import { useToast } from 'contexts/ToastContext';
 
 type propTypes = { children: React.ReactNode };
-const withAuthHOC = (props: propTypes): JSX.Element => {
+const WithAuth = (props: propTypes): JSX.Element => {
   const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
   const { setToast } = useToast();
@@ -21,4 +21,4 @@ const withAuthHOC = (props: propTypes): JSX.Element => {
   else return <>{props.children}</>;
 };
 
-export default withAuthHOC;
+export default WithAuth;

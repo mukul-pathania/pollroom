@@ -3,7 +3,7 @@ import { ScaleLoader } from 'react-spinners';
 const Loader = (): JSX.Element => {
   return (
     <>
-      <div className="z-40 flex h-full w-full fixed opacity-30 bg-black" />
+      <div className="z-40 flex h-full w-full fixed bg-white" />
       <div className="z-50 hidden md:flex w-screen h-screen items-center justify-center fixed top-0 left-0">
         <ScaleLoader
           loading

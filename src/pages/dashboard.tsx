@@ -1,5 +1,5 @@
 import mainLayout from 'layouts/main';
-import WithAuthHOC from 'components/WithAuthHOC';
+import WithAuth from 'components/WithAuth';
 import voteImage from 'assets/images/vote.png';
 import pollImage from 'assets/images/poll.png';
 import roomImage from 'assets/images/room.png';
@@ -28,7 +28,7 @@ const dashboard = (): JSX.Element => {
       <Head>
         <title>PollRoom - Dashboard</title>
       </Head>
-      <WithAuthHOC>
+      <WithAuth>
         <div className="pt-24 md:pt-28 lg:pt-32 px-4 sm:px-6 lg:px-20 pb-12 lg:py-28 bg-gray-100 min-h-screen">
           <h2 className="font-bold text-xl md:text-2xl lg:text-4xl text-primary-600">
             Dashboard
@@ -42,7 +42,7 @@ const dashboard = (): JSX.Element => {
             <StatCard icon={voteImage.src} count={28} text="Votes casted" />
           </div>
         </div>
-      </WithAuthHOC>
+      </WithAuth>
     </>
   );
 };
