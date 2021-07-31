@@ -37,33 +37,43 @@ const LoginPage = (props: propTypes): JSX.Element => {
     formState: { errors: formErrors },
   } = useForm<Inputs>();
   const { setLoggedIn } = useAuth();
-  const { push } = useRouter();
+  const router = useRouter();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    setButtonDisabled(true);
-    const loginResponse = await loginWithEmailPassword(
-      data.email,
-      data.password,
-    );
-    if (!loginResponse.error) {
-      setLoggedIn();
-      setToast(
-        true,
-        'Logged in successfully',
-        'SUCCESS',
-        links.dashboard,
-        5000,
+    try {
+      setButtonDisabled(true);
+      const loginResponse = await loginWithEmailPassword(
+        data.email,
+        data.password,
       );
-      push(links.dashboard);
-    } else {
+      if (!loginResponse.error) {
+        setLoggedIn();
+        setToast(
+          true,
+          'Logged in successfully',
+          'SUCCESS',
+          links.dashboard,
+          5000,
+        );
+        router.push(links.dashboard);
+      } else {
+        setToast(
+          true,
+          loginResponse.message,
+          loginResponse.error ? 'ERROR' : 'SUCCESS',
+          links.login,
+          5000,
+        );
+      }
+      setButtonDisabled(false);
+    } catch (error) {
       setToast(
         true,
-        loginResponse.message,
-        loginResponse.error ? 'ERROR' : 'SUCCESS',
-        links.login,
+        'An error occured while processing your request',
+        'ERROR',
+        router.pathname,
         5000,
       );
     }
-    setButtonDisabled(false);
   };
 
   return (

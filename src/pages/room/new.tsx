@@ -5,6 +5,9 @@ import WithAuth from 'components/WithAuth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import clsx from 'clsx';
 import Error from 'components/ErrorMessageInput';
+import { useRouter } from 'next/router';
+import { createNewRoom } from 'adapters/room';
+import { useToast } from 'contexts/ToastContext';
 
 type Inputs = {
   name: string;
@@ -12,15 +15,46 @@ type Inputs = {
 
 const NewRoom = (): JSX.Element => {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const router = useRouter();
+  const { setToast } = useToast();
   const {
     register,
     handleSubmit,
     formState: { errors: formErrors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    setButtonDisabled(true);
-    console.log(data);
-    setButtonDisabled(false);
+    try {
+      setButtonDisabled(true);
+      const response = await createNewRoom(data.name);
+      console.log(response);
+      if (!response.error) {
+        setToast(
+          true,
+          'Room created successfully',
+          'SUCCESS',
+          router.pathname,
+          5000,
+        );
+        // router.push(links.login);
+      } else {
+        setToast(
+          true,
+          response.message,
+          response.error ? 'ERROR' : 'SUCCESS',
+          router.pathname,
+          5000,
+        );
+      }
+      setButtonDisabled(false);
+    } catch (error) {
+      setToast(
+        true,
+        'An error occured while processing your request',
+        'ERROR',
+        router.pathname,
+        5000,
+      );
+    }
   };
 
   return (

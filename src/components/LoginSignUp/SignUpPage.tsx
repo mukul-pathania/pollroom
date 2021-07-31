@@ -42,33 +42,43 @@ const SignUpPage = (props: propTypes): JSX.Element => {
     watch,
     formState: { errors: formErrors },
   } = useForm<Inputs>();
-  const { push } = useRouter();
+  const router = useRouter();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    setButtonDisabled(true);
-    const signUpResponse = await signUpWithEmailPassword(
-      data.email,
-      data.username as string,
-      data.password,
-    );
-    if (!signUpResponse.error) {
-      push(links.login);
-      setToast(
-        true,
-        'Check your inbox and verify your email before logging in',
-        'INFO',
-        links.login,
-        5000,
+    try {
+      setButtonDisabled(true);
+      const signUpResponse = await signUpWithEmailPassword(
+        data.email,
+        data.username as string,
+        data.password,
       );
-    } else {
+      if (!signUpResponse.error) {
+        setToast(
+          true,
+          'Check your inbox and verify your email before logging in',
+          'INFO',
+          links.login,
+          5000,
+        );
+        router.push(links.login);
+      } else {
+        setToast(
+          true,
+          signUpResponse.message,
+          signUpResponse.error ? 'ERROR' : 'SUCCESS',
+          links.signup,
+          5000,
+        );
+      }
+      setButtonDisabled(false);
+    } catch (error) {
       setToast(
         true,
-        signUpResponse.message,
-        signUpResponse.error ? 'ERROR' : 'SUCCESS',
-        links.signup,
+        'An error occured while processing your request',
+        'ERROR',
+        router.pathname,
         5000,
       );
     }
-    setButtonDisabled(false);
   };
 
   return (

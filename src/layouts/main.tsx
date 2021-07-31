@@ -15,7 +15,7 @@ const landingPageData = [
   {
     key: 2,
     label: 'Create a room',
-    path: '',
+    path: link.createNewRoom,
     className:
       'hover:text-accent-700 text-primary-500 px-3 py-2 rounded font-main font-regular text-base',
   },
