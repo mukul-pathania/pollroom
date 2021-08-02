@@ -4,6 +4,10 @@ import voteImage from 'assets/images/vote.png';
 import pollImage from 'assets/images/poll.png';
 import roomImage from 'assets/images/room.png';
 import Head from 'next/head';
+import { getDashboardInfo } from 'adapters/dashboard';
+import React from 'react';
+import { useToast } from 'contexts/ToastContext';
+import { useRouter } from 'next/router';
 
 type StatCardProps = { icon: string; count: number; text: string };
 const StatCard = (props: StatCardProps): JSX.Element => {
@@ -23,6 +27,28 @@ const StatCard = (props: StatCardProps): JSX.Element => {
 };
 
 const dashboard = (): JSX.Element => {
+  const { setToast } = useToast();
+  const router = useRouter();
+  const [dashBoardState, setDashBoardState] = React.useState({
+    roomsJoined: 0,
+    pollsCreated: 0,
+    votesCasted: 0,
+  });
+  const fetchDashBoardInfo = async () => {
+    const response = await getDashboardInfo();
+    if (response.error) {
+      setToast(true, response.message, 'ERROR', router.pathname, 5000);
+    }
+    setDashBoardState((state) => ({
+      ...state,
+      pollsCreated: response.pollsCreated,
+      roomsJoined: response.roomsJoined,
+      votesCasted: response.votesCasted,
+    }));
+  };
+  React.useEffect(() => {
+    fetchDashBoardInfo();
+  }, []);
   return (
     <>
       <Head>
@@ -37,9 +63,21 @@ const dashboard = (): JSX.Element => {
             Some stats around your activity
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-10">
-            <StatCard icon={roomImage.src} count={7} text="Rooms created" />
-            <StatCard icon={pollImage.src} count={11} text="Polls created" />
-            <StatCard icon={voteImage.src} count={28} text="Votes casted" />
+            <StatCard
+              icon={roomImage.src}
+              count={dashBoardState.roomsJoined}
+              text="Rooms joined"
+            />
+            <StatCard
+              icon={pollImage.src}
+              count={dashBoardState.pollsCreated}
+              text="Polls created"
+            />
+            <StatCard
+              icon={voteImage.src}
+              count={dashBoardState.votesCasted}
+              text="Votes casted"
+            />
           </div>
         </div>
       </WithAuth>
