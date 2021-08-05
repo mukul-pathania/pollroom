@@ -83,6 +83,7 @@ module.exports = {
   variants: {
     extend: {
       backgroundColor: ['disabled'],
+      ringColor: ['hover', 'active'],
     },
   },
   plugins: [],
