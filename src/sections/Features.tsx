@@ -1,5 +1,3 @@
-import commentImage from 'assets/images/features/comments.png';
-import historyImage from 'assets/images/features/history.png';
 import organizedImage from 'assets/images/features/organized.png';
 import pulicImage from 'assets/images/features/public.png';
 import securityImage from 'assets/images/features/security.png';
@@ -30,21 +28,21 @@ const FeatureData: FeatureBoxPropTypes[] = [
     heading: 'Full Security',
     text: 'Your private polls are only visible to registered users who are in the room.',
   },
-  {
-    icon: historyImage.src,
-    heading: 'Profile History',
-    text: 'See all the polls you have participated in and where did your vote go.',
-  },
+  // {
+  //   icon: historyImage.src,
+  //   heading: 'Profile History',
+  //   text: 'See all the polls you have participated in and where did your vote go.',
+  // },
   {
     icon: switchImage.src,
     heading: 'Open/Close Voting',
     text: 'Close or open participation on any poll you created at any time.',
   },
-  {
-    icon: commentImage.src,
-    heading: 'Poll Comments',
-    text: 'Allow the registered users to comment on polls and engage in detailed discussions.',
-  },
+  // {
+  //   icon: commentImage.src,
+  //   heading: 'Poll Comments',
+  //   text: 'Allow the registered users to comment on polls and engage in detailed discussions.',
+  // },
   {
     icon: pulicImage.src,
     heading: 'Public Rooms',
@@ -85,7 +83,7 @@ const Features = (): JSX.Element => {
       <h4 className="text-center font-medium text-gray-600 pb-6 text-lg">
         Meet exciting features we provide
       </h4>
-      <div className="grid gap-8 grid-cols-1 grid-rows-8 sm:grid-cols-2 sm:grid-rows-4 lg:grid-cols-3 lg:grid-rows-3 py-8">
+      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 py-8">
         {FeatureData.map((feature, index) => (
           <FeatureBox
             key={`${feature.icon}${index}`}
