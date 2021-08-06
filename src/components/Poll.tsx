@@ -3,7 +3,17 @@ import TickImage from 'assets/images/tick.svg';
 
 type propTypes = {
   question: string;
-  options: Array<{ content: string; id: number; isSelected?: boolean }>;
+  options: {
+    id: string;
+    created_at: Date;
+    option_text: string;
+    votes: {
+      id: string;
+      option_id: string;
+      created_at: Date;
+      user_id: string;
+    }[];
+  }[];
   pollNumber: number;
 };
 
@@ -20,13 +30,14 @@ const Poll = (props: propTypes): JSX.Element => {
             key={option.id}
             className={clsx(
               'flex justify-between ring-2 ring-secondary-800 ring-opacity-30  rounded p-4 lg:p-6 text-lg lg:text-2xl font-medium max-w-lg cursor-pointer',
-              option.isSelected
-                ? 'transform translate-x-2 ring-4 ring-opacity-100'
-                : 'hover:shadow-xl hover:ring-accent-700 transform hover:-translate-y-2 transition duration-500',
+              // option.isSelected
+              //   ? 'transform translate-x-2 ring-4 ring-opacity-100'
+              //   : 'hover:shadow-xl hover:ring-accent-700 transform hover:-translate-y-2 transition duration-500',
+              'hover:shadow-xl hover:ring-accent-700 transform hover:-translate-y-2 transition duration-500',
             )}
           >
-            {option.content}
-            {option.isSelected && <img src={TickImage.src} className="h-8" />}
+            {option.option_text}
+            {/* {option.isSelected && <img src={TickImage.src} className="h-8" />} */}
           </p>
         ))}
       </div>
