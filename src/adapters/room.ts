@@ -19,32 +19,36 @@ export const createNewRoom = async (
 };
 
 export type roomInfo = {
-  created_at: Date;
   creator: {
+    id: string;
     username: string;
   };
+  created_at: Date;
   name: string;
   polls: {
-    id: string;
     created_at: Date;
+    id: string;
     question: string;
     options: {
-      id: string;
       created_at: Date;
+      id: string;
       option_text: string;
-      votes: {
-        id: string;
-        option_id: string;
-        created_at: Date;
-        user_id: string;
-      }[];
+      _count: { votes: number } | null;
+      votes:
+        | {
+            id: string;
+          }[];
     }[];
   }[];
 } | null;
 
 export const getRoomInfo = async (
   roomId: string,
-): Promise<{ roomInfo: roomInfo; error: boolean; message: string }> => {
+): Promise<{
+  roomInfo: roomInfo;
+  error: boolean;
+  message: string;
+}> => {
   try {
     const response = await api.get<{
       roomInfo: roomInfo;
