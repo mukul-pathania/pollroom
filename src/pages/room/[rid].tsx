@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import mainLayout from 'layouts/main';
 import Poll from 'components/Poll';
 import WithAuth from 'components/WithAuth';
@@ -21,6 +22,9 @@ const Room = (): JSX.Element => {
   }, []);
   return (
     <WithAuth>
+      <Head>
+        <title>PollRoom - {roomState?.name}</title>
+      </Head>
       <div className="bg-gray-50 pt-24 md:pt-28 lg:pt-32 px-4 sm:px-6 lg:px-20 py-12 min-h-screen">
         <h2 className="font-bold text-xl md:text-2xl lg:text-4xl text-primary-600">
           {roomState?.name}
