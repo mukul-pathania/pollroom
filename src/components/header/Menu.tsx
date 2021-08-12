@@ -19,7 +19,7 @@ const Menu = (): JSX.Element => {
         leaveTo="transform scale-50 opacity-0"
       >
         <Popover.Panel className="absolute z-10 transform -left-full top-full mt-2 -translate-x-1/2">
-          <div className="rounded bg-gray-50 shadow-2xl ring-1 ring-black ring-opacity-5">
+          <div className="rounded bg-gray-50 shadow-2xl ring-1 ring-black ring-opacity-5 max-w-xs mr-6 break-words">
             <div className="py-4 px-8 flex flex-col space-y-2">
               <p className="text-primary-400 font-medium">{user.username}</p>
               <p className="text-gray-500 font-medium">{user.email}</p>
