@@ -8,7 +8,6 @@ export const createNewRoom = async (
     const response = await api.post<createNewRoomType>('/room/new', {
       roomName,
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     return {
@@ -55,7 +54,6 @@ export const getRoomInfo = async (
       error: boolean;
       message: string;
     }>(`/room/${roomId}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     return {

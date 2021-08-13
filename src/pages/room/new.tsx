@@ -26,7 +26,6 @@ const NewRoom = (): JSX.Element => {
     try {
       setButtonDisabled(true);
       const response = await createNewRoom(data.name);
-      console.log(response);
       if (!response.error) {
         setToast(
           true,

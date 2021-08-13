@@ -5,12 +5,13 @@ import mainLayout from 'layouts/main';
 import Poll from 'components/Poll';
 import WithAuth from 'components/WithAuth';
 import { getRoomInfo, roomInfo } from 'adapters/room';
+import { GoPlus } from 'react-icons/go';
+import NewPoll from 'components/NewPoll';
 
 type roomState = roomInfo;
 const Room = (): JSX.Element => {
   const router = useRouter();
   const [roomState, setRoomState] = React.useState<roomState | undefined>();
-  console.log(router.query.rid);
   const setRoomData = async () => {
     try {
       const roomData = await getRoomInfo(router.query.rid as string);
@@ -46,6 +47,16 @@ const Room = (): JSX.Element => {
               pollNumber={index + 1}
             />
           ))}
+          <NewPoll pollNumber={4} />
+        </div>
+        {/* <hr className="h-1 w-full bg-primary-700 rounded-full my-6" /> */}
+        <div className="flex items-center justify-center">
+          <button className="font-medium text-xl rounded bg-accent-600 text-white py-4 px-6 flex items-center transition duration-500 hover:bg-accent-900 shadow-xl">
+            Add a poll
+            <span className="pl-4">
+              <GoPlus />
+            </span>
+          </button>
         </div>
       </div>
     </WithAuth>

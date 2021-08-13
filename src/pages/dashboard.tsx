@@ -76,7 +76,7 @@ const dashboard = (): JSX.Element => {
             <StatCard
               icon={voteImage.src}
               count={dashBoardState.votesCasted}
-              text="Votes casted"
+              text="Votes cast"
             />
           </div>
         </div>

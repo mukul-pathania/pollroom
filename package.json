@@ -20,7 +20,8 @@
     "react-icons": "^4.2.0",
     "react-spinners": "^0.11.0",
     "swiper": "^6.7.5",
-    "typeface-dm-sans": "^1.1.13"
+    "typeface-dm-sans": "^1.1.13",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -28,6 +29,7 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/node": "*",
     "@types/react": "^17.0.14",
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "autoprefixer": "^10.2.6",

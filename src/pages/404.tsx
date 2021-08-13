@@ -4,7 +4,6 @@ import Image404 from 'assets/images/404.svg';
 import link from 'link';
 
 const Page404 = (): JSX.Element => {
-  console.log(Image404);
   return (
     <>
       <Head>
