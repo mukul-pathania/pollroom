@@ -27,7 +27,6 @@ const Room = (): JSX.Element => {
   const { user } = useAuth();
   const { setToast } = useToast();
   const onCreatePoll = (data: poll) => {
-    console.log(data, roomState);
     setRoomState((currentState) => ({
       ...currentState,
       polls: [...currentState.polls, data],
@@ -53,7 +52,7 @@ const Room = (): JSX.Element => {
 
   if (loading) return <PageLoadingSkeleton loading />;
   return (
-    <WithAuth>
+    <>
       <Head>
         <title>PollRoom - {roomState?.name}</title>
       </Head>
@@ -101,10 +100,10 @@ const Room = (): JSX.Element => {
           </div>
         )}
       </div>
-    </WithAuth>
+    </>
   );
 };
 
 Room.layout = mainLayout;
 
-export default Room;
+export default WithAuth(Room);

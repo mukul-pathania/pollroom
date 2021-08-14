@@ -54,36 +54,34 @@ const dashboard = (): JSX.Element => {
       <Head>
         <title>PollRoom - Dashboard</title>
       </Head>
-      <WithAuth>
-        <div className="pt-24 md:pt-28 lg:pt-32 px-4 sm:px-6 lg:px-20 pb-12 lg:py-28 bg-gray-100 min-h-screen">
-          <h2 className="font-bold text-xl md:text-2xl lg:text-4xl text-primary-600">
-            Dashboard
-          </h2>
-          <p className="font-medium text-primary-400 text-lg pt-2">
-            Some stats around your activity
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-10">
-            <StatCard
-              icon={roomImage.src}
-              count={dashBoardState.roomsJoined}
-              text="Rooms joined"
-            />
-            <StatCard
-              icon={pollImage.src}
-              count={dashBoardState.pollsCreated}
-              text="Polls created"
-            />
-            <StatCard
-              icon={voteImage.src}
-              count={dashBoardState.votesCasted}
-              text="Votes cast"
-            />
-          </div>
+      <div className="pt-24 md:pt-28 lg:pt-32 px-4 sm:px-6 lg:px-20 pb-12 lg:py-28 bg-gray-100 min-h-screen">
+        <h2 className="font-bold text-xl md:text-2xl lg:text-4xl text-primary-600">
+          Dashboard
+        </h2>
+        <p className="font-medium text-primary-400 text-lg pt-2">
+          Some stats around your activity
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-10">
+          <StatCard
+            icon={roomImage.src}
+            count={dashBoardState.roomsJoined}
+            text="Rooms joined"
+          />
+          <StatCard
+            icon={pollImage.src}
+            count={dashBoardState.pollsCreated}
+            text="Polls created"
+          />
+          <StatCard
+            icon={voteImage.src}
+            count={dashBoardState.votesCasted}
+            text="Votes cast"
+          />
         </div>
-      </WithAuth>
+      </div>
     </>
   );
 };
 
 dashboard.layout = mainLayout;
-export default dashboard;
+export default WithAuth(dashboard);
