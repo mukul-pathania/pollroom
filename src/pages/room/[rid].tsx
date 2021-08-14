@@ -6,21 +6,52 @@ import Poll from 'components/Poll';
 import WithAuth from 'components/WithAuth';
 import { getRoomInfo, roomInfo } from 'adapters/room';
 import { GoPlus } from 'react-icons/go';
-import NewPoll from 'components/NewPoll';
+import NewPoll, { poll } from 'components/NewPoll';
+import { useToast } from 'contexts/ToastContext';
+import link from 'link';
+import PageLoadingSkeleton from 'components/PageLoadingSkeleton';
+import { useAuth } from 'contexts/AuthContext';
 
 type roomState = roomInfo;
+const defaultState: roomState = {
+  creator: { username: '', id: '' },
+  created_at: new Date(),
+  name: '',
+  polls: [],
+};
 const Room = (): JSX.Element => {
   const router = useRouter();
-  const [roomState, setRoomState] = React.useState<roomState | undefined>();
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [roomState, setRoomState] = React.useState<roomState>(defaultState);
+  const [creatingPoll, setCreatingPoll] = React.useState<boolean>(false);
+  const { user } = useAuth();
+  const { setToast } = useToast();
+  const onCreatePoll = (data: poll) => {
+    console.log(data, roomState);
+    setRoomState((currentState) => ({
+      ...currentState,
+      polls: [...currentState.polls, data],
+    }));
+    setCreatingPoll(false);
+  };
   const setRoomData = async () => {
     try {
       const roomData = await getRoomInfo(router.query.rid as string);
-      setRoomState(roomData.roomInfo);
-    } catch (error) {}
+      if (roomData.error) throw new Error(roomData.message);
+      if (roomData.roomInfo) {
+        setRoomState(roomData.roomInfo);
+        setLoading(false);
+      }
+    } catch (error) {
+      setToast(true, error.message, 'ERROR', link.home.hero, 5000);
+      router.push(link.home.hero);
+    }
   };
   React.useEffect(() => {
     setRoomData();
   }, []);
+
+  if (loading) return <PageLoadingSkeleton loading />;
   return (
     <WithAuth>
       <Head>
@@ -47,17 +78,28 @@ const Room = (): JSX.Element => {
               pollNumber={index + 1}
             />
           ))}
-          <NewPoll pollNumber={4} />
+          {creatingPoll && (
+            <NewPoll
+              pollNumber={roomState.polls.length + 1 || 1}
+              onCreation={onCreatePoll}
+              onClose={() => setCreatingPoll(false)}
+            />
+          )}
         </div>
         {/* <hr className="h-1 w-full bg-primary-700 rounded-full my-6" /> */}
-        <div className="flex items-center justify-center">
-          <button className="font-medium text-xl rounded bg-accent-600 text-white py-4 px-6 flex items-center transition duration-500 hover:bg-accent-900 shadow-xl">
-            Add a poll
-            <span className="pl-4">
-              <GoPlus />
-            </span>
-          </button>
-        </div>
+        {!creatingPoll && user.username === roomState.creator.username && (
+          <div className="flex items-center justify-center">
+            <button
+              className="font-medium text-xl rounded bg-accent-600 text-white py-4 px-6 mt-8 flex items-center transition duration-500 hover:bg-accent-900 shadow-xl"
+              onClick={() => setCreatingPoll(true)}
+            >
+              Add a poll
+              <span className="pl-4">
+                <GoPlus />
+              </span>
+            </button>
+          </div>
+        )}
       </div>
     </WithAuth>
   );

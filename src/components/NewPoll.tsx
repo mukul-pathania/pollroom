@@ -3,22 +3,107 @@ import { GoPlus } from 'react-icons/go';
 import { BsTrash } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 import clsx from 'clsx';
+import { useToast } from 'contexts/ToastContext';
+import { useRouter } from 'next/router';
+import { MdClose } from 'react-icons/md';
 
-type propTypes = { pollNumber: number };
+export type poll = {
+  created_at: Date;
+  id: string;
+  question: string;
+  options: {
+    created_at: Date;
+    id: string;
+    option_text: string;
+    _count: { votes: number } | null;
+    votes:
+      | {
+          id: string;
+        }[];
+  }[];
+};
+
+type propTypes = {
+  pollNumber: number;
+  onCreation: (data: poll) => void;
+  onClose: () => void;
+};
 
 const NewPoll = (props: propTypes): JSX.Element => {
+  const [question, setQuestion] = React.useState<string>('');
   const [options, setOptions] = React.useState<
     Array<{ option_text: string; key: string }>
   >([]);
+  const { setToast } = useToast();
+  const router = useRouter();
+
+  const createPoll = () => {
+    if (question.trim() === '') {
+      setToast(
+        true,
+        'Question cannot be empty',
+        'ERROR',
+        router.pathname,
+        5000,
+      );
+      return;
+    }
+    if (options.length === 0) {
+      setToast(
+        true,
+        'Poll cannot be created without options',
+        'ERROR',
+        router.pathname,
+        5000,
+      );
+      return;
+    }
+    if (options.some((option) => option.option_text.length === 0)) {
+      setToast(
+        true,
+        'You have created an empty option, delete it or fill it',
+        'ERROR',
+        router.pathname,
+        5000,
+      );
+      return;
+    }
+
+    const createdPoll: poll = {
+      created_at: new Date(),
+      id: uuidv4(),
+      question: question,
+      options: options.map((option) => {
+        return {
+          created_at: new Date(),
+          id: option.key,
+          option_text: option.option_text,
+          _count: { votes: 0 },
+          votes: [],
+        };
+      }),
+    };
+    props.onCreation(createdPoll);
+  };
 
   return (
-    <div className="mb-4 md:mb-8">
+    <div className="mb-4 md:mb-8 relative group">
+      <span
+        className="absolute right-0 top-0 p-2 cursor-pointer invisible group-hover:visible z-10 hover:bg-gray-300 rounded"
+        onClick={props.onClose}
+      >
+        <MdClose size={36} className="text-red-500" />
+      </span>
       <span className="text-3xl lg:text-5xl opacity-30 text-accent-700 font-bold block mb-2 mt-4 md:mt-0">
         Q{props.pollNumber}
       </span>
       <textarea
         className="mt-2 p-4 font-medium text-2xl lg:text-4xl mb-8 border-none outline-none focus:ring-2 focus:ring-primary-700 rounded resize-none"
         rows={2}
+        value={question}
+        onChange={(e) => {
+          setQuestion(e.target.value);
+        }}
         placeholder="Eg. Which is your favourite sport?"
       />
       <div className="mt-4 flex flex-col space-y-8">
@@ -69,7 +154,10 @@ const NewPoll = (props: propTypes): JSX.Element => {
           <GoPlus />
         </span>
       </button>
-      <button className="w-full bg-accent-700 text-white py-4 px-6 mt-12 text-lg uppercase font-bold cursor-pointer rounded hover:bg-accent-900 transition-all duration-500 hover:shadow-md">
+      <button
+        className="w-full bg-accent-700 text-white py-4 px-6 mt-12 text-lg uppercase font-bold cursor-pointer rounded hover:bg-accent-900 transition-all duration-500 hover:shadow-md"
+        onClick={createPoll}
+      >
         Create your poll
       </button>
     </div>

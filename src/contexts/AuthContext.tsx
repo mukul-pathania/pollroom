@@ -1,6 +1,8 @@
 import React from 'react';
 import { checkAuthWithServer, logout as logoutFromServer } from 'adapters/auth';
 import PageLoadingSkeleton from 'components/PageLoadingSkeleton';
+import { useRouter } from 'next/router';
+import link from 'link';
 
 type AuthContextType = {
   loading: boolean;
@@ -24,6 +26,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     isAuthenticated: undefined,
     user: { username: '', email: '' },
   });
+  const router = useRouter();
 
   const checkAuth = async (): Promise<void> => {
     try {
@@ -49,6 +52,7 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
   const logout = async () => {
     setAuthState((authState) => ({ ...authState, loading: true }));
+    await router.push(link.home.hero);
     await logoutFromServer();
     setAuthState((authState) => ({
       ...authState,

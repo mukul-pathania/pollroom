@@ -17,7 +17,7 @@ export const checkAuthWithServer = async (): Promise<authResponse> => {
     return response.data;
   } catch (error) {
     return {
-      message: 'An error occured while processing your request',
+      message: 'You are not authenticated',
       isAuthenticated: false,
       error: true,
       username: '',

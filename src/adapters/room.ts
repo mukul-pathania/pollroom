@@ -39,12 +39,12 @@ export type roomInfo = {
           }[];
     }[];
   }[];
-} | null;
+};
 
 export const getRoomInfo = async (
   roomId: string,
 ): Promise<{
-  roomInfo: roomInfo;
+  roomInfo?: roomInfo;
   error: boolean;
   message: string;
 }> => {
@@ -59,7 +59,6 @@ export const getRoomInfo = async (
     return {
       error: true,
       message: 'An error occured while processing your request',
-      roomInfo: null,
     };
   }
 };
