@@ -62,3 +62,19 @@ export const getRoomInfo = async (
     };
   }
 };
+
+type joinRoomResponse = { message: string; error: boolean; roomId?: string };
+
+export const joinRoom = async (roomName: string): Promise<joinRoomResponse> => {
+  try {
+    const response = await api.post<joinRoomResponse>('room/join', {
+      roomName,
+    });
+    return response.data;
+  } catch (error) {
+    return {
+      error: true,
+      message: 'An error occured while processing your request',
+    };
+  }
+};

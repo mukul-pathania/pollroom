@@ -87,12 +87,12 @@ const NewPoll = (props: propTypes): JSX.Element => {
   };
 
   return (
-    <div className="mb-4 md:mb-8 relative group">
+    <div className="mb-4 md:mb-8 relative">
       <span
-        className="absolute right-0 top-0 p-2 cursor-pointer invisible group-hover:visible z-10 hover:bg-gray-300 rounded"
+        className="absolute right-0 top-0 p-2 cursor-pointer z-10 hover:bg-gray-300 rounded"
         onClick={props.onClose}
       >
-        <MdClose size={36} className="text-red-500" />
+        <MdClose size={36} className="text-primary-700" />
       </span>
       <span className="text-3xl lg:text-5xl opacity-30 text-accent-700 font-bold block mb-2 mt-4 md:mt-0">
         Q{props.pollNumber}
@@ -120,7 +120,7 @@ const NewPoll = (props: propTypes): JSX.Element => {
                 optionCopy[index].option_text = e.target.value;
                 setOptions(optionCopy);
               }}
-              className="outline-none border-none focus:shadow-xl focus:ring-opacity-100 ring-2 ring-secondary-800 ring-opacity-30 rounded p-4 lg:px-6 lg:py-4 text-lg lg:text-2xl font-medium cursor-pointer transform transition duration-500 group block w-full max-w-lg"
+              className="outline-none border-none focus:shadow-xl focus:ring-opacity-100 ring-2 ring-secondary-800 ring-opacity-30 rounded p-4 lg:px-6 lg:py-4 text-lg lg:text-2xl font-medium cursor-pointer transform transition duration-500 block w-full max-w-lg"
             />
             <button className="group-hover:visible invisible block p-2 cursor-pointer hover:bg-gray-300 rounded">
               <BsTrash

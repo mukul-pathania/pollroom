@@ -31,7 +31,7 @@ const headerData = [
   {
     key: 1,
     label: 'Join a room',
-    path: '',
+    path: link.joinRoom,
     className:
       'hover:text-accent-700 text-primary-500 px-3 py-2 font-main font-medium text-base',
   },
