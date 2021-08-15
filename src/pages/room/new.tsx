@@ -31,10 +31,13 @@ const NewRoom = (): JSX.Element => {
           true,
           'Room created successfully',
           'SUCCESS',
-          router.pathname,
+          '/room/[rid]',
           5000,
         );
-        // router.push(links.login);
+        router.push({
+          pathname: '/room/[rid]',
+          query: { rid: response.roomId },
+        });
       } else {
         setToast(
           true,

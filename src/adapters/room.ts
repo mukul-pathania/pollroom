@@ -1,6 +1,6 @@
 import api from './baseApi';
 
-type createNewRoomType = { message: string; error: boolean };
+type createNewRoomType = { message: string; error: boolean; roomId?: string };
 export const createNewRoom = async (
   roomName: string,
 ): Promise<createNewRoomType> => {
