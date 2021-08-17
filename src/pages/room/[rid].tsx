@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { io, Socket } from 'socket.io-client';
 import mainLayout from 'layouts/main';
 import Poll from 'components/Poll';
 import WithAuth from 'components/WithAuth';
@@ -25,6 +26,7 @@ const Room = (): JSX.Element => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [roomState, setRoomState] = React.useState<roomState>(defaultState);
   const [creatingPoll, setCreatingPoll] = React.useState<boolean>(false);
+  const [socket, setSocket] = React.useState<Socket>();
   const { user } = useAuth();
   const { setToast } = useToast();
   const onCreatePoll = (data: poll) => {
@@ -47,9 +49,25 @@ const Room = (): JSX.Element => {
       router.push(link.home.hero);
     }
   };
+
   React.useEffect(() => {
     setRoomData();
   }, []);
+
+  React.useEffect(() => {
+    const serverURL = process.env.NEXT_PUBLIC_BASE_URL as string;
+    const createdSocket = io(serverURL);
+    setSocket(createdSocket);
+    return () => {
+      createdSocket.close();
+    };
+  }, [setSocket]);
+
+  React.useEffect(() => {
+    socket?.on('message', (message) => {
+      console.log(message);
+    });
+  }, [socket]);
 
   if (loading) return <PageLoadingSkeleton loading />;
   return (

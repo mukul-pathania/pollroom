@@ -54,7 +54,7 @@ const LoginPage = (props: propTypes): JSX.Element => {
           links.dashboard,
           5000,
         );
-        router.push(links.dashboard);
+        await router.push(links.dashboard);
       } else {
         setToast(
           true,
