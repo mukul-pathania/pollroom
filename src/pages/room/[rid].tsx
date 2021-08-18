@@ -26,6 +26,7 @@ const Room = (): JSX.Element => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [roomState, setRoomState] = React.useState<roomState>(defaultState);
   const [creatingPoll, setCreatingPoll] = React.useState<boolean>(false);
+  const [socketToken, setSocketToken] = React.useState<string>('');
   const [socket, setSocket] = React.useState<Socket>();
   const { user } = useAuth();
   const { setToast } = useToast();
@@ -40,10 +41,9 @@ const Room = (): JSX.Element => {
     try {
       const roomData = await getRoomInfo(router.query.rid as string);
       if (roomData.error) throw new Error(roomData.message);
-      if (roomData.roomInfo) {
-        setRoomState(roomData.roomInfo);
-        setLoading(false);
-      }
+      if (roomData.roomInfo) setRoomState(roomData.roomInfo);
+      if (roomData.socketToken) setSocketToken(roomData.socketToken);
+      setLoading(false);
     } catch (error) {
       setToast(true, error.message, 'ERROR', link.home.hero, 5000);
       router.push(link.home.hero);
@@ -55,18 +55,35 @@ const Room = (): JSX.Element => {
   }, []);
 
   React.useEffect(() => {
+    if (!socketToken) return;
     const serverURL = process.env.NEXT_PUBLIC_BASE_URL as string;
-    const createdSocket = io(serverURL);
+    const createdSocket = io(serverURL, {
+      auth: { token: socketToken },
+      transports: ['websocket', 'polling'], //Use websockets first if available
+    });
     setSocket(createdSocket);
+    createdSocket.on('connect', () => {
+      console.log('socket connected');
+    });
+    createdSocket.on('connect_error', (err) => {
+      console.log(err.message);
+    });
+    createdSocket.on('disconnect', (reason) => {
+      console.log('socket disconnected', reason);
+    });
     return () => {
       createdSocket.close();
     };
-  }, [setSocket]);
+  }, [socketToken]);
 
   React.useEffect(() => {
     socket?.on('message', (message) => {
       console.log(message);
     });
+    return () => {
+      // todo
+      // socket?.off('message', function)
+    };
   }, [socket]);
 
   if (loading) return <PageLoadingSkeleton loading />;

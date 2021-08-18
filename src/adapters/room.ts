@@ -47,12 +47,14 @@ export const getRoomInfo = async (
   roomInfo?: roomInfo;
   error: boolean;
   message: string;
+  socketToken?: string;
 }> => {
   try {
     const response = await api.get<{
       roomInfo: roomInfo;
       error: boolean;
       message: string;
+      socketToken: string;
     }>(`/room/${roomId}`);
     return response.data;
   } catch (error) {
