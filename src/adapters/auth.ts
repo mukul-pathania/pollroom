@@ -42,6 +42,7 @@ export const logout = async (): Promise<void> => {
 type loginResponse = {
   message: string;
   error: boolean;
+  token?: string;
 };
 
 type signUpResponse = loginResponse;
