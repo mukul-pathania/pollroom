@@ -7,25 +7,12 @@ import { useToast } from 'contexts/ToastContext';
 import { useRouter } from 'next/router';
 import { MdClose } from 'react-icons/md';
 
-export type poll = {
-  created_at: Date;
-  id: string;
-  question: string;
-  options: {
-    created_at: Date;
-    id: string;
-    option_text: string;
-    _count: { votes: number } | null;
-    votes:
-      | {
-          id: string;
-        }[];
-  }[];
-};
-
 type propTypes = {
   pollNumber: number;
-  onCreation: (data: poll) => void;
+  onCreation: (data: {
+    question: string;
+    options: Array<{ option_text: string }>;
+  }) => void;
   onClose: () => void;
 };
 
@@ -69,17 +56,11 @@ const NewPoll = (props: propTypes): JSX.Element => {
       return;
     }
 
-    const createdPoll: poll = {
-      created_at: new Date(),
-      id: uuidv4(),
+    const createdPoll = {
       question: question,
       options: options.map((option) => {
         return {
-          created_at: new Date(),
-          id: option.key,
           option_text: option.option_text,
-          _count: { votes: 0 },
-          votes: [],
         };
       }),
     };

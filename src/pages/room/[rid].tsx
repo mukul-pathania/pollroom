@@ -7,12 +7,13 @@ import Poll from 'components/Poll';
 import WithAuth from 'components/WithAuth';
 import { getRoomInfo, roomInfo } from 'adapters/room';
 import { GoPlus } from 'react-icons/go';
-import NewPoll, { poll } from 'components/NewPoll';
+import NewPoll from 'components/NewPoll';
 import { useToast } from 'contexts/ToastContext';
 import link from 'link';
 import PageLoadingSkeleton from 'components/PageLoadingSkeleton';
 import { useAuth } from 'contexts/AuthContext';
 import { formatDistanceToNow } from 'date-fns';
+import registerSocketHandlers, { poll } from 'adapters/socketHandlers';
 
 type roomState = roomInfo;
 const defaultState: roomState = {
@@ -30,13 +31,31 @@ const Room = (): JSX.Element => {
   const [socket, setSocket] = React.useState<Socket>();
   const { user } = useAuth();
   const { setToast } = useToast();
-  const onCreatePoll = (data: poll) => {
-    setRoomState((currentState) => ({
-      ...currentState,
-      polls: [...currentState.polls, data],
-    }));
+  const onCreatePoll = (data: {
+    question: string;
+    options: Array<{ option_text: string }>;
+  }) => {
+    if (socket && socket.connected) {
+      socket.emit('poll:create', data.question, data.options);
+    } else {
+      setToast(
+        true,
+        'Poll creation failed: Not connected through websocket',
+        'ERROR',
+        router.pathname,
+        5000,
+      );
+    }
     setCreatingPoll(false);
   };
+
+  const addPoll = (poll: poll) => {
+    setRoomState((currentState) => ({
+      ...currentState,
+      polls: [...currentState.polls, poll],
+    }));
+  };
+
   const setRoomData = async () => {
     try {
       const roomData = await getRoomInfo(router.query.rid as string);
@@ -45,7 +64,13 @@ const Room = (): JSX.Element => {
       if (roomData.socketToken) setSocketToken(roomData.socketToken);
       setLoading(false);
     } catch (error) {
-      setToast(true, error.message, 'ERROR', link.home.hero, 5000);
+      setToast(
+        true,
+        (error as { message: string }).message,
+        'ERROR',
+        link.home.hero,
+        5000,
+      );
       router.push(link.home.hero);
     }
   };
@@ -62,29 +87,11 @@ const Room = (): JSX.Element => {
       transports: ['websocket', 'polling'], //Use websockets first if available
     });
     setSocket(createdSocket);
-    createdSocket.on('connect', () => {
-      console.log('socket connected');
-    });
-    createdSocket.on('connect_error', (err) => {
-      console.log(err.message);
-    });
-    createdSocket.on('disconnect', (reason) => {
-      console.log('socket disconnected', reason);
-    });
+    registerSocketHandlers(createdSocket, router.query.rid as string, addPoll);
     return () => {
       createdSocket.close();
     };
   }, [socketToken]);
-
-  React.useEffect(() => {
-    socket?.on('message', (message) => {
-      console.log(message);
-    });
-    return () => {
-      // todo
-      // socket?.off('message', function)
-    };
-  }, [socket]);
 
   if (loading) return <PageLoadingSkeleton loading />;
   return (
