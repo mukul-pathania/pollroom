@@ -1,7 +1,7 @@
 import Contact from 'sections/Contact';
 import Features from 'sections/Features';
 import Hero from 'sections/Hero';
-import SignUp from 'sections/SignUpCTA';
+import CTA from 'sections/CTA';
 import Testimonial from 'sections/Testimonials';
 import Head from 'next/head';
 import Layout from 'layouts/main';
@@ -14,7 +14,7 @@ const Home = (): JSX.Element => {
       </Head>
       <Hero />
       <Features />
-      <SignUp />
+      <CTA />
       <Testimonial />
       <Contact />
     </>

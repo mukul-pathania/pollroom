@@ -1,3 +1,4 @@
+import { useAuth } from 'contexts/AuthContext';
 import links from 'link';
 
 const Background = (): JSX.Element => {
@@ -21,6 +22,7 @@ const Background = (): JSX.Element => {
 };
 
 const SignUp = (): JSX.Element => {
+  const { isAuthenticated } = useAuth();
   return (
     <section className="mx-auto mt-4 px-4 sm:px-6 lg:px-20 bg-primary-700 relative">
       <Background />
@@ -28,12 +30,21 @@ const SignUp = (): JSX.Element => {
         <p className="text-center md:text-left text-white py-2 mb-4 md:mb-0 text-3xl font-bold md:w-8/12">
           Create polls for your meetings, webinars, events and more!
         </p>
-        <a
-          href={links.signup}
-          className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300"
-        >
-          Sign Up
-        </a>
+        {isAuthenticated ? (
+          <a
+            href={links.createNewRoom}
+            className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300"
+          >
+            Create a room
+          </a>
+        ) : (
+          <a
+            href={links.signup}
+            className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300"
+          >
+            Sign Up
+          </a>
+        )}
       </div>
     </section>
   );
