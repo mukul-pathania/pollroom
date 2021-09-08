@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import TickImage from 'assets/images/tick.svg';
 
 type propTypes = {
+  id: string;
   question: string;
   options: {
     created_at: Date;
@@ -14,6 +15,7 @@ type propTypes = {
         }[];
   }[];
   pollNumber: number;
+  addOrUpdateVote: (pollId: string, optionId: string) => void;
 };
 
 const VoteCount = (props: { count?: number }): JSX.Element => {
@@ -31,6 +33,11 @@ const Poll = (props: propTypes): JSX.Element => {
       <div className="mt-4 flex flex-col space-y-8">
         {props.options.map((option) => (
           <div
+            onClick={() => {
+              // Do this only if the option is not already selected
+              if (option.votes.length === 0)
+                props.addOrUpdateVote(props.id, option.id);
+            }}
             key={option.id}
             className={clsx(
               'flex justify-between ring-2 ring-secondary-800 ring-opacity-30 rounded p-4 lg:px-6 lg:py-4 text-lg lg:text-2xl font-medium max-w-lg cursor-pointer transform transition duration-500',

@@ -49,6 +49,12 @@ const Room = (): JSX.Element => {
     setCreatingPoll(false);
   };
 
+  const addOrUpdateVote = (pollId: string, optionId: string) => {
+    if (socket && socket.connected) {
+      socket.emit('poll:castvote', pollId, optionId);
+    }
+  };
+
   const addPoll = (poll: poll) => {
     setRoomState((currentState) => ({
       ...currentState,
@@ -120,7 +126,9 @@ const Room = (): JSX.Element => {
               question={poll.question}
               options={poll.options}
               key={poll.id}
+              id={poll.id}
               pollNumber={index + 1}
+              addOrUpdateVote={addOrUpdateVote}
             />
           ))}
           {creatingPoll && (

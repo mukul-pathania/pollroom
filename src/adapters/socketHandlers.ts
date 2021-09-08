@@ -30,6 +30,10 @@ const registerSocketHandlers = (
     addPoll(poll);
   });
 
+  // socket.onAny((event, ...args) => {
+  //   console.log(event, args);
+  // });
+
   // socket.on('connect_error', (err) => {
   //   console.log(err.message);
   // });
