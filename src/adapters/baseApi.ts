@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:5000/';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:5000';
 
 const refreshToken = async (): Promise<string> => {
   try {
     const res = await axios.get<{ token: string }>(
-      `${baseUrl}auth/refresh_token`,
+      `${baseUrl}/auth/refresh_token`,
       {
         withCredentials: true,
       },
