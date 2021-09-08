@@ -9,13 +9,15 @@ type propTypes = {
     id: string;
     option_text: string;
     _count: { votes: number } | null;
-    votes:
-      | {
-          id: string;
-        }[];
   }[];
   pollNumber: number;
-  addOrUpdateVote: (pollId: string, optionId: string) => void;
+  selectedOption?: number;
+  addOrUpdateVote: (
+    pollId: string,
+    optionId: string,
+    pollIndex: number,
+    optionIndex: number,
+  ) => void;
 };
 
 const VoteCount = (props: { count?: number }): JSX.Element => {
@@ -31,17 +33,22 @@ const Poll = (props: propTypes): JSX.Element => {
       </span>
       <p className="font-medium text-2xl lg:text-4xl mb-8">{props.question}</p>
       <div className="mt-4 flex flex-col space-y-8">
-        {props.options.map((option) => (
+        {props.options.map((option, optionIndex) => (
           <div
             onClick={() => {
               // Do this only if the option is not already selected
-              if (option.votes.length === 0)
-                props.addOrUpdateVote(props.id, option.id);
+              if (props.selectedOption !== optionIndex)
+                props.addOrUpdateVote(
+                  props.id,
+                  option.id,
+                  props.pollNumber - 1,
+                  optionIndex,
+                );
             }}
             key={option.id}
             className={clsx(
               'flex justify-between ring-2 ring-secondary-800 ring-opacity-30 rounded p-4 lg:px-6 lg:py-4 text-lg lg:text-2xl font-medium max-w-lg cursor-pointer transform transition duration-500',
-              option.votes.length > 0
+              props.selectedOption === optionIndex
                 ? 'translate-x-2 ring-4 ring-opacity-100'
                 : 'hover:shadow-xl hover:ring-accent-700 hover:-translate-y-2',
             )}
@@ -50,8 +57,7 @@ const Poll = (props: propTypes): JSX.Element => {
               {option.option_text}
               <VoteCount count={option._count?.votes} />
             </div>
-            {/* votes will contain a vote if the user has selected this option in the poll*/}
-            {option.votes.length > 0 && (
+            {props.selectedOption === optionIndex && (
               <img src={TickImage.src} className="h-8" />
             )}
           </div>

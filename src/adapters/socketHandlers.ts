@@ -4,6 +4,7 @@ export type poll = {
   created_at: Date;
   id: string;
   question: string;
+  selectedOption: number;
   options: {
     created_at: Date;
     id: string;
@@ -21,6 +22,7 @@ const registerSocketHandlers = (
   socket: Socket,
   roomId: string,
   addPoll: (poll: poll) => void,
+  updatePolls: (poll: poll) => void,
 ): void => {
   socket.on('connect', () => {
     socket.emit('room', roomId);
@@ -28,6 +30,10 @@ const registerSocketHandlers = (
 
   socket.on('poll:created', (poll) => {
     addPoll(poll);
+  });
+
+  socket.on('poll:updated:vote', (poll) => {
+    updatePolls(poll);
   });
 
   // socket.onAny((event, ...args) => {

@@ -28,6 +28,7 @@ export type roomInfo = {
     created_at: Date;
     id: string;
     question: string;
+    selectedOption: number;
     options: {
       created_at: Date;
       id: string;
@@ -56,6 +57,11 @@ export const getRoomInfo = async (
       message: string;
       socketToken: string;
     }>(`/room/${roomId}`);
+    response.data.roomInfo.polls.forEach((poll) => {
+      poll.selectedOption = poll.options.findIndex(
+        (option) => option.votes.length > 0,
+      );
+    });
     return response.data;
   } catch (error) {
     return {

@@ -49,17 +49,41 @@ const Room = (): JSX.Element => {
     setCreatingPoll(false);
   };
 
-  const addOrUpdateVote = (pollId: string, optionId: string) => {
+  const addOrUpdateVote = (
+    pollId: string,
+    optionId: string,
+    pollIndex: number,
+    optionIndex: number,
+  ) => {
+    const pollsCopy = roomState.polls;
+    pollsCopy[pollIndex].selectedOption = optionIndex;
+    setRoomState((currentState) => ({ ...currentState, polls: pollsCopy }));
     if (socket && socket.connected) {
       socket.emit('poll:castvote', pollId, optionId);
     }
   };
 
   const addPoll = (poll: poll) => {
+    poll.selectedOption = -1;
+    const pollsCopy = roomState.polls;
+    pollsCopy.push(poll);
     setRoomState((currentState) => ({
       ...currentState,
-      polls: [...currentState.polls, poll],
+      polls: pollsCopy,
     }));
+  };
+  const updatePolls = (poll: poll) => {
+    const pollsCopy = roomState.polls;
+    const indexToUpdate = pollsCopy.findIndex(
+      (currentPoll) => currentPoll.id === poll.id,
+    );
+    if (indexToUpdate === -1) {
+      pollsCopy.push(poll);
+    } else {
+      poll.selectedOption = pollsCopy[indexToUpdate].selectedOption;
+      pollsCopy[indexToUpdate] = poll;
+    }
+    setRoomState((currentState) => ({ ...currentState, polls: pollsCopy }));
   };
 
   const setRoomData = async () => {
@@ -93,7 +117,12 @@ const Room = (): JSX.Element => {
       transports: ['websocket', 'polling'], //Use websockets first if available
     });
     setSocket(createdSocket);
-    registerSocketHandlers(createdSocket, router.query.rid as string, addPoll);
+    registerSocketHandlers(
+      createdSocket,
+      router.query.rid as string,
+      addPoll,
+      updatePolls,
+    );
     return () => {
       createdSocket.close();
     };
@@ -129,6 +158,7 @@ const Room = (): JSX.Element => {
               id={poll.id}
               pollNumber={index + 1}
               addOrUpdateVote={addOrUpdateVote}
+              selectedOption={poll.selectedOption}
             />
           ))}
           {creatingPoll && (
