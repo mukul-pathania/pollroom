@@ -51,7 +51,7 @@ const FeatureData: FeatureBoxPropTypes[] = [
   {
     icon: sharingImage.src,
     heading: 'Share Polls',
-    text: 'You can share polls with anyone you want by providing them with url of the room.',
+    text: 'You can share polls with anyone you want by providing them with name of the room.',
   },
 ];
 
