@@ -96,7 +96,7 @@ const SignUpPage = (props: propTypes): JSX.Element => {
           </p>
           <div className="flex justify-center items-center">
             <a
-              href="http://localhost:5000/auth/google/signup"
+              href={`${process.env.NEXT_PUBLIC_BASE_URL}/auth/google/signup`}
               className="flex items-center space-between py-2 px-4 m-4 bg-white text-primary-700 hover:bg-gray-300 transition-all duration-500 rounded shadow text-base font-medium cursor-pointer"
             >
               <FcGoogle
@@ -106,7 +106,7 @@ const SignUpPage = (props: propTypes): JSX.Element => {
               Google
             </a>
             <a
-              href="http://localhost:5000/auth/google/signup"
+              href="#"
               className="flex items-center space-between py-2 px-4 m-4 bg-white text-primary-700 hover:bg-gray-300 transition-all duration-500 rounded shadow text-base font-medium cursor-pointer"
             >
               <IoLogoGithub
