@@ -1,4 +1,5 @@
 import heroImage from 'assets/images/asset1.svg';
+import links from 'link';
 
 const Hero = (): JSX.Element => {
   return (
@@ -16,12 +17,13 @@ const Hero = (): JSX.Element => {
           <br />
           Different rooms for different purposes
         </p>
-        <button
+        <a
+          href={links.createNewRoom}
           role="button"
-          className="mx-auto md:mx-0 md:mb-12 block px-6 py-2 md:py-4 rounded font-bold text-xl md:text-2xl text-white bg-primary-600 hover:bg-accent-700 transition-all duration-500 transform md:hover:scale-105"
+          className="mx-auto md:mx-0 md:mb-12 inline-block px-6 py-2 md:py-4 rounded font-bold text-xl md:text-2xl text-white bg-primary-600 hover:bg-accent-700 transition-all duration-500 transform md:hover:scale-105"
         >
           Create a room
-        </button>
+        </a>
       </div>
       <div className="md:w-1/2">
         <img
