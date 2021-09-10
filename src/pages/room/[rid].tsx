@@ -142,7 +142,9 @@ const Room = (): JSX.Element => {
           Created by
           <span className="text-primary-900">
             {' '}
-            {roomState.creator.username}{' '}
+            {roomState.creator.username === user.username
+              ? 'you'
+              : roomState.creator.username}{' '}
           </span>
           {formatDistanceToNow(new Date(roomState.created_at), {
             addSuffix: true,
