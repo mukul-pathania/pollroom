@@ -19,8 +19,7 @@ const Hero = (): JSX.Element => {
         </p>
         <a
           href={links.createNewRoom}
-          role="button"
-          className="mx-auto md:mx-0 md:mb-12 inline-block px-6 py-2 md:py-4 rounded font-bold text-xl md:text-2xl text-white bg-primary-600 hover:bg-accent-700 transition-all duration-500 transform md:hover:scale-105"
+          className="mx-auto md:mx-0 md:mb-12 block max-w-max px-6 py-2 md:py-4 rounded font-bold text-xl md:text-2xl text-white bg-primary-600 hover:bg-accent-700 transition-all duration-500 transform md:hover:scale-105"
         >
           Create a room
         </a>
