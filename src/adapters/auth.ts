@@ -56,6 +56,7 @@ export const loginWithEmailPassword = async (
       email,
       password,
     });
+    api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
     return response.data;
   } catch (error) {
     return {
