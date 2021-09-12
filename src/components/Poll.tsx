@@ -21,8 +21,13 @@ type propTypes = {
 };
 
 const VoteCount = (props: { count?: number }): JSX.Element => {
-  if (props.count) return <p className="text-base">{props.count} votes</p>;
-  return <p className="text-base">0 votes</p>;
+  if (props.count)
+    return (
+      <p className="text-base">
+        {props.count} {props.count > 1 ? 'votes' : 'vote'}
+      </p>
+    );
+  return <p className="text-base">0 vote</p>;
 };
 
 const Poll = (props: propTypes): JSX.Element => {
