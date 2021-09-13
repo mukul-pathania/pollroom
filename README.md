@@ -13,11 +13,15 @@ Created this project to learn Typescript and React. This is the front-end/client
 
 Pollroom allows you to organise multiple related polls into a room and you can watch the changes to all the polls happen in realtime, rather than seeing a poll at a time.
 
-Users will create rooms with unique name and share the name with everyone they want in the room. Creator of the room can then add polls which will be propagated to all users in realtime who are on the room page.
+Users will create rooms with unique name and share the name with everyone they want in the room. Creator of the room can then add polls which will be propagated to all users in realtime who are on the room page.  
+
+![Realtime votes in action](src/assets/images/poll-in-action.gif "Realtime votes in action")  
+
+
 
 ## Demo
 
-![Homepage](src/assets/images/pollroom-demo.gif)
+![Homepage](src/assets/images/pollroom-demo.gif "Homepage")
 
 The application can be accessed live at [https://pollroom-six.vercel.app](https://pollroom-six.vercel.app).
 
@@ -40,8 +44,12 @@ git clone https://github.com/mukul-pathania/pollroom.git
 
 #Install all the dependencies
 yarn
+```
 
-#To start the project locally
+Then create a file named .env.local with proper values for the keys defined in .env.example, after you have done this we can start the development server.
+
+```bash
+#Start the development server
 yarn dev
 ```
 
