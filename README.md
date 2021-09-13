@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Logo](src/assets/images/PollRoom.png "Logo")
 
-## Getting Started
+# PollRoom
 
-First, run the development server:
+![GitHub issues](https://img.shields.io/github/issues-raw/mukul-pathania/pollroom)
+![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/mukul-pathania/pollroom)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fpollroom-six.vercel.app)
+![GitHub last commit](https://img.shields.io/github/last-commit/mukul-pathania/pollroom)  
+
+Created this project to learn Typescript and React. This is the front-end/client-side code of the complete application. Back-end/server-side code can be found [here](https://github.com/mukul-pathania/pollroombackend).
+
+**PollRoom** is a simple web app which can be used to create polls. Polls can be a very good way to engage your audience in meetings, webinars or other events.
+
+Pollroom allows you to organise multiple related polls into a room and you can watch the changes to all the polls happen in realtime, rather than seeing a poll at a time.
+
+Users will create rooms with unique name and share the name with everyone they want in the room. Creator of the room can then add polls which will be propagated to all users in realtime who are on the room page.
+
+## Demo
+
+![Homepage](src/assets/images/pollroom-demo.gif)
+
+The application can be accessed live at [https://pollroom-six.vercel.app](https://pollroom-six.vercel.app).
+
+
+## Technologies used
+
+1. [Typescript](https://www.typescriptlang.org/)
+2. [Next.js](https://nextjs.org/)
+3. [Tailwindcss](https://tailwindcss.com/)
+4. [Headless UI](https://headlessui.dev/)
+5. [Socket.IO](https://socket.io/)  
+
+## Development
+
+You can clone this repository using git and install all the dependencies to start with development.
 
 ```bash
-npm run dev
-# or
+#Clone the repo first
+git clone https://github.com/mukul-pathania/pollroom.git
+
+#Install all the dependencies
+yarn
+
+#To start the project locally
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can now open your browser at http://localhost:3000 and should be greeted by the homepage of the application.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You might also need to setup the back-end/server-side of this application for development, instructions for setting that up should be found [here](https://github.com/mukul-pathania/pollroombackend).
