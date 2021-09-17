@@ -4,10 +4,13 @@ import voteImage from 'assets/images/vote.png';
 import pollImage from 'assets/images/poll.png';
 import roomImage from 'assets/images/room.png';
 import Head from 'next/head';
-import { getDashboardInfo } from 'adapters/dashboard';
+import { getDashboardInfo, createdRooms } from 'adapters/dashboard';
 import React from 'react';
 import { useToast } from 'contexts/ToastContext';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import link from 'link';
+import { formatDistanceToNow } from 'date-fns';
 
 type StatCardProps = { icon: string; count: number; text: string };
 const StatCard = (props: StatCardProps): JSX.Element => {
@@ -26,14 +29,54 @@ const StatCard = (props: StatCardProps): JSX.Element => {
   );
 };
 
+type RoomCardProps = {
+  name: string;
+  created_at: Date;
+  polls: number;
+  members: number;
+  room_id: string;
+};
+const RoomCard = (props: RoomCardProps): JSX.Element => {
+  return (
+    <Link href={{ pathname: link.specificRoom, query: { rid: props.room_id } }}>
+      <div className="cursor-pointer relative px-6 py-12 bg-white max-w-lg rounded-md hover:shadow-2xl duration-500 transform hover:-translate-y-1">
+        <h3 className="text-3xl text-primary-500 font-semibold pb-4">
+          {props.name}
+        </h3>
+        <p className="text-lg font-medium text-primary-300 pb-2">
+          Created{' '}
+          {formatDistanceToNow(new Date(props.created_at), {
+            addSuffix: true,
+            includeSeconds: true,
+          })}
+        </p>
+        <p className="text-lg font-medium text-primary-300">
+          {props.members} members
+        </p>
+        <p className="absolute -top-4 md:-top-4 -right-6 md:-right-10 w-24 h-12 border-2 border-primary-500 bg-gray-200 rounded-full flex justify-center items-center p-2 font-medium text-base">
+          {props.polls} {props.polls === 1 ? 'poll' : 'polls'}
+        </p>
+      </div>
+    </Link>
+  );
+};
+
+type dashboardStateType = {
+  roomsJoined: number;
+  pollsCreated: number;
+  votesCasted: number;
+  createdRooms: createdRooms;
+};
 const dashboard = (): JSX.Element => {
   const { setToast } = useToast();
   const router = useRouter();
-  const [dashBoardState, setDashBoardState] = React.useState({
-    roomsJoined: 0,
-    pollsCreated: 0,
-    votesCasted: 0,
-  });
+  const [dashBoardState, setDashBoardState] =
+    React.useState<dashboardStateType>({
+      roomsJoined: 0,
+      pollsCreated: 0,
+      votesCasted: 0,
+      createdRooms: [],
+    });
   const fetchDashBoardInfo = async () => {
     const response = await getDashboardInfo();
     if (response.error) {
@@ -44,6 +87,7 @@ const dashboard = (): JSX.Element => {
       pollsCreated: response.pollsCreated,
       roomsJoined: response.roomsJoined,
       votesCasted: response.votesCasted,
+      createdRooms: response.createdRooms,
     }));
   };
   React.useEffect(() => {
@@ -61,7 +105,7 @@ const dashboard = (): JSX.Element => {
         <p className="font-medium text-primary-400 text-lg pt-2">
           Some stats around your activity
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 my-10">
           <StatCard
             icon={roomImage.src}
             count={dashBoardState.roomsJoined}
@@ -77,6 +121,21 @@ const dashboard = (): JSX.Element => {
             count={dashBoardState.votesCasted}
             text="Votes cast"
           />
+        </div>
+        <h2 className="font-bold text-xl md:text-2xl lg:text-4xl text-primary-600">
+          Rooms created
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
+          {dashBoardState.createdRooms.map((room) => (
+            <RoomCard
+              room_id={room.id}
+              key={room.id}
+              polls={room._count?.polls || 0}
+              members={room._count?.users || 0}
+              created_at={room.created_at}
+              name={room.name}
+            />
+          ))}
         </div>
       </div>
     </>

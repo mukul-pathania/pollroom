@@ -12,4 +12,5 @@ export default {
   changePassword: '/auth/password/reset/change',
   createNewRoom: '/room/new',
   joinRoom: '/room/join',
+  specificRoom: '/room/[rid]',
 };
