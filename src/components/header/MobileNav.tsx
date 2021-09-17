@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import React from 'react';
 import links from 'link';
 import { useAuth } from 'contexts/AuthContext';
+import link from 'link';
 
 const LoginSignUpButtons = (): JSX.Element => {
   return (
@@ -28,6 +29,13 @@ const Menu = (): JSX.Element => {
   const { logout } = useAuth();
   return (
     <div className="flex flex-col items-center justify-around mt-4 space-y-4">
+      <a
+        className="text-primary-500 font-medium hover:text-accent-600 cursor-pointer"
+        href={link.dashboard}
+      >
+        Dashboard
+      </a>
+
       <a className="text-primary-500 font-medium hover:text-accent-600 cursor-pointer">
         My Profile
       </a>
