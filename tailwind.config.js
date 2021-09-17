@@ -85,6 +85,8 @@ module.exports = {
       backgroundColor: ['disabled'],
       ringColor: ['hover', 'active'],
       visibility: ['group-hover'],
+      ringOpacity: ['hover'],
+      ringWidth: ['hover'],
     },
   },
   plugins: [],
