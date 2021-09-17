@@ -39,7 +39,7 @@ type RoomCardProps = {
 const RoomCard = (props: RoomCardProps): JSX.Element => {
   return (
     <Link href={{ pathname: link.specificRoom, query: { rid: props.room_id } }}>
-      <div className="cursor-pointer relative px-6 py-12 bg-white max-w-lg rounded-md hover:shadow-2xl duration-500 transform hover:-translate-y-1">
+      <div className="cursor-pointer relative px-6 py-12 bg-white max-w-lg rounded hover:shadow-2xl duration-500 transform hover:-translate-y-1">
         <h3 className="text-3xl text-primary-500 font-semibold pb-4">
           {props.name}
         </h3>
