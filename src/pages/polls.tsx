@@ -91,7 +91,7 @@ const Polls = (): JSX.Element => {
                 className={({ open }) =>
                   clsx(
                     open ? 'bg-white' : 'bg-gray-300',
-                    'px-5 py-4 outline-none border-none transition duration-500 flex space-x-4 items-center rounded capitalize font-medium text-lg',
+                    'px-3 md:px-5 py-2 md:py-4 outline-none border-none transition duration-500 flex space-x-4 items-center rounded capitalize font-medium md:text-lg text-base',
                   )
                 }
               >
