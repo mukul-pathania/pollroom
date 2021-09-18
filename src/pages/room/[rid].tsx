@@ -172,19 +172,21 @@ const Room = (): JSX.Element => {
           )}
         </div>
         {/* <hr className="h-1 w-full bg-primary-700 rounded-full my-6" /> */}
-        {!creatingPoll && user.username === roomState.creator.username && (
-          <div className="flex items-center justify-center">
-            <button
-              className="font-medium text-xl rounded bg-accent-600 text-white py-4 px-6 mt-8 flex items-center transition duration-500 hover:bg-accent-900 shadow-xl"
-              onClick={() => setCreatingPoll(true)}
-            >
-              Add a poll
-              <span className="pl-4">
-                <GoPlus />
-              </span>
-            </button>
-          </div>
-        )}
+        {!creatingPoll &&
+          user.username === roomState.creator.username &&
+          roomState.polls.length < 10 && (
+            <div className="flex items-center justify-center">
+              <button
+                className="font-medium text-xl rounded bg-accent-600 text-white py-4 px-6 mt-8 flex items-center transition duration-500 hover:bg-accent-900 shadow-xl"
+                onClick={() => setCreatingPoll(true)}
+              >
+                Add a poll
+                <span className="pl-4">
+                  <GoPlus />
+                </span>
+              </button>
+            </div>
+          )}
       </div>
     </>
   );
