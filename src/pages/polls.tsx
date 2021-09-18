@@ -34,7 +34,7 @@ const PollCard = (props: PollCardProps): JSX.Element => {
         <p className="text-lg font-medium text-primary-300">
           room: {props.roomName}
         </p>
-        <p className="absolute -top-4 md:-top-4 -right-6 md:-right-10 w-24 h-12 border-2 border-primary-500 bg-gray-200 rounded-full flex justify-center items-center p-2 font-medium text-base">
+        <p className="absolute -top-4 md:-top-4 -right-3 md:-right-10 w-24 h-12 border-2 border-primary-500 bg-gray-200 rounded-full flex justify-center items-center p-2 font-medium text-base">
           {props.votes} {props.votes === 1 ? 'vote' : 'votes'}
         </p>
       </div>

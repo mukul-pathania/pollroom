@@ -21,7 +21,7 @@ type StatCardProps = {
 const StatCard = (props: StatCardProps): JSX.Element => {
   return (
     <Link href={props.link}>
-      <div className="px-6 py-12 shadow-lg rounded cursor-pointer bg-white ring-1 hover:ring-2 ring-primary-900 ring-opacity-5 hover:ring-opacity-100 transform duration-500 hover:shadow-2xl hover:-translate-y-1">
+      <div className="px-6 py-12 rounded cursor-pointer bg-white ring-1 ring-primary-900 ring-opacity-5 transform duration-500 hover:shadow-2xl hover:-translate-y-1">
         <div className="flex justify-center items-center my-6">
           <img src={props.icon} alt="" className="max-w-xs max-h-20 my-2" />
         </div>
@@ -60,7 +60,7 @@ const RoomCard = (props: RoomCardProps): JSX.Element => {
         <p className="text-lg font-medium text-primary-300">
           {props.members} members
         </p>
-        <p className="absolute -top-4 md:-top-4 -right-6 md:-right-10 w-24 h-12 border-2 border-primary-500 bg-gray-200 rounded-full flex justify-center items-center p-2 font-medium text-base">
+        <p className="absolute -top-4 md:-top-4 -right-3 md:-right-10 w-24 h-12 border-2 border-primary-500 bg-gray-200 rounded-full flex justify-center items-center p-2 font-medium text-base">
           {props.polls} {props.polls === 1 ? 'poll' : 'polls'}
         </p>
       </div>
