@@ -82,7 +82,7 @@ module.exports = {
   extend: {},
   variants: {
     extend: {
-      backgroundColor: ['disabled'],
+      backgroundColor: ['disabled', 'active'],
       ringColor: ['hover', 'active'],
       visibility: ['group-hover'],
     },

@@ -53,9 +53,13 @@ type pollsCreatedResponse = {
   pollsCreated: pollsCreatedType;
 };
 
-export const getPollsCreated = async (): Promise<pollsCreatedResponse> => {
+export const getPollsCreated = async (
+  sortBy: 'popular' | 'recent',
+): Promise<pollsCreatedResponse> => {
   try {
-    const response = await api.get<pollsCreatedResponse>('/user/polls');
+    const response = await api.get<pollsCreatedResponse>('/user/polls', {
+      params: { sortBy },
+    });
     return response.data;
   } catch (error) {
     return {
