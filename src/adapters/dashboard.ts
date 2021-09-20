@@ -69,3 +69,32 @@ export const getPollsCreated = async (
     };
   }
 };
+
+export type roomsJoined = {
+  id: string;
+  name: string;
+  created_at: Date;
+  pollCount: number;
+  memberCount: number;
+};
+
+type roomsJoinedResponseType = {
+  message: string;
+  error: boolean;
+  roomsJoined: Array<roomsJoined>;
+};
+
+export const getRoomsJoined = async (): Promise<roomsJoinedResponseType> => {
+  try {
+    const response = await api.get<roomsJoinedResponseType>(
+      '/user/rooms-joined',
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      error: true,
+      message: 'An error occured while processing your request',
+      roomsJoined: [],
+    };
+  }
+};
