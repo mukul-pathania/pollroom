@@ -14,4 +14,5 @@ export default {
   joinRoom: '/room/join',
   specificRoom: '/room/[rid]',
   polls: '/polls',
+  roomsJoined: '/rooms-joined',
 };

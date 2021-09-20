@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import link from 'link';
 import RoomCard from 'components/RoomCard';
+import { BiRightArrowAlt } from 'react-icons/bi';
 
 type StatCardProps = {
   icon: string;
@@ -21,15 +22,18 @@ type StatCardProps = {
 const StatCard = (props: StatCardProps): JSX.Element => {
   return (
     <Link href={props.link}>
-      <div className="px-6 py-12 rounded cursor-pointer bg-white ring-1 ring-primary-900 ring-opacity-5 transform duration-500 hover:shadow-2xl hover:-translate-y-1">
+      <div className="px-6 py-12 rounded cursor-pointer bg-white ring-1 ring-primary-900 ring-opacity-5 transform duration-500 hover:shadow-2xl hover:-translate-y-1 group">
         <div className="flex justify-center items-center my-6">
           <img src={props.icon} alt="" className="max-w-xs max-h-20 my-2" />
         </div>
         <p className="text-center font-bold text-6xl text-primary-700">
           {props.count}
         </p>
-        <p className="text-center p-2 text-lg text-primary-400 font-medium">
-          {props.text}
+        <p className="text-center p-2 text-lg text-primary-400 font-medium flex justify-center space-x-1 items-center">
+          <span className="block">{props.text}</span>
+          <span className="hidden group-hover:block transition duration-300 text-accent-500">
+            <BiRightArrowAlt size={30} />
+          </span>
         </p>
       </div>
     </Link>
@@ -82,7 +86,7 @@ const dashboard = (): JSX.Element => {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 my-10">
           <StatCard
-            link={''}
+            link={link.roomsJoined}
             icon={roomImage.src}
             count={dashBoardState.roomsJoined}
             text="Rooms joined"
