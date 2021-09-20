@@ -146,6 +146,11 @@ const Polls = (): JSX.Element => {
             />
           ))}
         </div>
+        {polls.length === 0 ? (
+          <p className="font-medium text-primary-400 text-lg md:text-xl text-center">
+            {"You haven't created any poll yet"}
+          </p>
+        ) : null}
       </div>
     </>
   );
