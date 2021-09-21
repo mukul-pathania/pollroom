@@ -98,3 +98,28 @@ export const getRoomsJoined = async (): Promise<roomsJoinedResponseType> => {
     };
   }
 };
+
+export type vote = {
+  id: string;
+  voteUpdatedAt: Date;
+  pollCreatedAt: Date;
+  question: string;
+  roomId: string;
+  optionText: string;
+  roomName: string;
+};
+
+type votesCast = { message: string; error: boolean; votes: Array<vote> };
+
+export const getVotesCast = async (): Promise<votesCast> => {
+  try {
+    const response = await api.get<votesCast>('/user/votes');
+    return response.data;
+  } catch (error) {
+    return {
+      error: true,
+      message: 'An error occured while processing your request',
+      votes: [],
+    };
+  }
+};
