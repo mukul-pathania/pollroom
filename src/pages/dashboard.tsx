@@ -32,7 +32,7 @@ const StatCard = (props: StatCardProps): JSX.Element => {
         <p className="text-center p-2 text-lg text-primary-400 font-medium flex justify-center space-x-1 items-center">
           <span className="block">{props.text}</span>
           <span className="hidden group-hover:block transition duration-300 text-accent-500">
-            <BiRightArrowAlt size={30} />
+            <BiRightArrowAlt size={24} />
           </span>
         </p>
       </div>
@@ -98,7 +98,7 @@ const dashboard = (): JSX.Element => {
             text="Polls created"
           />
           <StatCard
-            link={''}
+            link={link.votes}
             icon={voteImage.src}
             count={dashBoardState.votesCasted}
             text="Votes cast"

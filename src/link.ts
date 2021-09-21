@@ -15,4 +15,5 @@ export default {
   specificRoom: '/room/[rid]',
   polls: '/polls',
   roomsJoined: '/rooms-joined',
+  votes: '/votes',
 };
