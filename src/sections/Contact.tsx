@@ -1,6 +1,4 @@
 import { IoLocationSharp, IoLogoLinkedin } from 'react-icons/io5';
-import { FaPhoneAlt } from 'react-icons/fa';
-// import { MdEmail } from 'react-icons/md';
 import { ImGithub } from 'react-icons/im';
 import clsx from 'clsx';
 
@@ -69,17 +67,6 @@ const Contact = (): JSX.Element => {
               link="https://goo.gl/maps/LGYR2rb2qsWQvqEZA"
             />
             <ContactItem
-              icon={<FaPhoneAlt size={42} color="white" />}
-              heading="Phone"
-              text={<p className="text-gray-300">+917977540418</p>}
-              link="tel:+917977540418"
-            />
-            {/* <ContactItem
-              icon={<MdEmail style={{ fill: 'white' }} size={42} />}
-              heading="Email"
-              text={<p className="text-gray-300">mukulpathania96@gmail.com</p>}
-            /> */}
-            <ContactItem
               icon={<ImGithub style={{ fill: 'white' }} size={42} />}
               heading="Github"
               text={<p className="text-gray-300">mukul-pathania</p>}
@@ -100,7 +87,7 @@ const Contact = (): JSX.Element => {
           <form
             action="mailto:mukulpathania96@gmail.com"
             method="POST"
-            className="flex flex-col items-center md:items-start mb-12 md:mb-0"
+            className="flex flex-col items-center md:items-start mb-12 md:mb-6"
           >
             <input
               className="mb-5 p-4 placeholder-secondary-300 rounded border-none outline-none bg-primary-500 text-white block w-10/12"
