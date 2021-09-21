@@ -45,6 +45,7 @@ type dashboardStateType = {
   pollsCreated: number;
   votesCasted: number;
   createdRooms: createdRooms;
+  loading: boolean;
 };
 const dashboard = (): JSX.Element => {
   const { setToast } = useToast();
@@ -55,11 +56,13 @@ const dashboard = (): JSX.Element => {
       pollsCreated: 0,
       votesCasted: 0,
       createdRooms: [],
+      loading: true,
     });
   const fetchDashBoardInfo = async () => {
     const response = await getDashboardInfo();
     if (response.error) {
       setToast(true, response.message, 'ERROR', router.pathname, 5000);
+      setDashBoardState((state) => ({ ...state, loading: false }));
     }
     setDashBoardState((state) => ({
       ...state,
@@ -67,6 +70,7 @@ const dashboard = (): JSX.Element => {
       roomsJoined: response.roomsJoined,
       votesCasted: response.votesCasted,
       createdRooms: response.createdRooms,
+      loading: false,
     }));
   };
   React.useEffect(() => {
@@ -119,7 +123,7 @@ const dashboard = (): JSX.Element => {
             />
           ))}
         </div>
-        {dashBoardState.createdRooms.length === 0 ? (
+        {!dashBoardState.loading && dashBoardState.createdRooms.length === 0 ? (
           <p className="font-medium text-primary-400 text-lg md:text-xl text-center">
             {"You haven't created any room yet"}
           </p>

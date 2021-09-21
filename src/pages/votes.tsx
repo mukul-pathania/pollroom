@@ -59,13 +59,17 @@ const VoteCard = (props: VoteCardProps): JSX.Element => {
 const RoomsJoined = (): JSX.Element => {
   const { setToast } = useToast();
   const router = useRouter();
-  const [votes, setVotes] = React.useState<Array<vote>>([]);
+  const [votesState, setVotesState] = React.useState<{
+    votes: Array<vote>;
+    loading: boolean;
+  }>({ votes: [], loading: true });
   const fetchVotesCast = async () => {
     const response = await getVotesCast();
     if (response.error) {
       setToast(true, response.message, 'ERROR', router.pathname, 5000);
+      setVotesState((state) => ({ ...state, loading: false }));
     }
-    setVotes(response.votes);
+    setVotesState({ loading: false, votes: response.votes });
   };
 
   React.useEffect(() => {
@@ -85,11 +89,11 @@ const RoomsJoined = (): JSX.Element => {
           Polls you voted on
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
-          {votes.map((vote) => (
+          {votesState.votes.map((vote) => (
             <VoteCard vote={vote} key={vote.id} />
           ))}
         </div>
-        {votes.length === 0 ? (
+        {!votesState.loading && votesState.votes.length === 0 ? (
           <p className="font-medium text-primary-400 text-lg md:text-xl text-center">
             {"You haven't voted on any poll yet"}
           </p>

@@ -51,11 +51,14 @@ const sortingOptions = [
   { id: '2', text: 'popular' },
 ];
 
-type pollsStateType = pollsCreatedType;
+type pollsStateType = { polls: pollsCreatedType; loading: boolean };
 const Polls = (): JSX.Element => {
   const { setToast } = useToast();
   const router = useRouter();
-  const [polls, setPolls] = React.useState<pollsStateType>([]);
+  const [pollsState, setPollsState] = React.useState<pollsStateType>({
+    polls: [],
+    loading: true,
+  });
 
   const [sortingOption, setSortingOption] = React.useState<{
     id: string;
@@ -68,8 +71,9 @@ const Polls = (): JSX.Element => {
     );
     if (response.error) {
       setToast(true, response.message, 'ERROR', router.pathname, 5000);
+      setPollsState((state) => ({ ...state, loading: false }));
     }
-    setPolls(response.pollsCreated);
+    setPollsState({ polls: response.pollsCreated, loading: false });
   };
 
   React.useEffect(() => {
@@ -134,7 +138,7 @@ const Polls = (): JSX.Element => {
           These are the polls you created
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
-          {polls.map((poll) => (
+          {pollsState.polls.map((poll) => (
             <PollCard
               key={poll.id}
               votes={poll._count?.vote || 0}
@@ -146,7 +150,7 @@ const Polls = (): JSX.Element => {
             />
           ))}
         </div>
-        {polls.length === 0 ? (
+        {!pollsState.loading && pollsState.polls.length === 0 ? (
           <p className="font-medium text-primary-400 text-lg md:text-xl text-center">
             {"You haven't created any poll yet"}
           </p>
