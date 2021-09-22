@@ -2,6 +2,9 @@ import SwiperCore, { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import TestimonialCard from 'components/TestimonialCard';
 import avatarDefaultImage from 'assets/images/avatar.png';
+import React from 'react';
+import TestimonialModal from 'components/TestimonialModal';
+import { useAuth } from 'contexts/AuthContext';
 
 SwiperCore.use([Autoplay]);
 
@@ -123,7 +126,31 @@ const SWIPER_CONFIG = {
   },
 };
 
+const WriteReview = (): JSX.Element => {
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  return (
+    <div className="px-4 sm:px-6 lg:px-20">
+      {!modalOpen ? (
+        <button
+          className="mx-auto block bg-accent-700 disabled:bg-gray-400 text-white py-4 px-6 text-xl font-bold cursor-pointer rounded hover:bg-accent-900 transition-all duration-500 hover:shadow-md mt-5"
+          onClick={() => setModalOpen(true)}
+        >
+          Write a review
+        </button>
+      ) : null}
+      {modalOpen ? (
+        <TestimonialModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+        />
+      ) : null}
+    </div>
+  );
+};
+
 const Testimonial = (): JSX.Element => {
+  const { isAuthenticated } = useAuth();
   return (
     <section
       className="bg-gray-100 pt-10 pb-10 overflow-hidden"
@@ -149,6 +176,7 @@ const Testimonial = (): JSX.Element => {
           </SwiperSlide>
         ))}
       </Swiper>
+      {isAuthenticated ? <WriteReview /> : null}
     </section>
   );
 };

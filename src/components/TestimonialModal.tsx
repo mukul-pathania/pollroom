@@ -8,11 +8,11 @@ const TestimonialModal = (props: props): JSX.Element => {
     <Dialog
       open={props.isOpen}
       onClose={props.onClose}
-      className="fixed inset-0 z-10 overflow-y-auto"
+      className="fixed inset-0 z-30 overflow-y-auto"
     >
-      <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+      <Dialog.Overlay className="fixed inset-0 bg-black opacity-60" />
       <div className="min-h-screen px-4 flex justify-center items-center min-w-full">
-        <div className="bg-gray-100 rounded px-4 py-6 z-10 w-full max-w-xl shadow-2xl">
+        <div className="bg-gray-100 rounded px-4 py-6 z-30 w-full max-w-xl shadow-2xl">
           <Dialog.Title className="font-bold text-2xl md:text-3xl lg:text-4xl pb-2 text-center">
             Write your review
           </Dialog.Title>
@@ -23,9 +23,13 @@ const TestimonialModal = (props: props): JSX.Element => {
             name="Review"
             className="mt-2 p-4 placeholder-blueGray-500 rounded border-none resize-none outline-none bg-gray-200 h-56 text-black block w-full mx-auto"
             placeholder="Your message..."
+            maxLength={480}
           ></textarea>
-          <button className="mx-auto mt-4 block bg-accent-700 hover:bg-accent-900 disabled:bg-gray-400 w-full text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded transition-all duration-500 hover:shadow-md">
-            Send
+          <button
+            className="mx-auto mt-4 block bg-accent-700 hover:bg-accent-900 disabled:bg-gray-400 w-full text-white py-4 px-6 text-lg uppercase font-bold cursor-pointer rounded transition-all duration-500 hover:shadow-md"
+            onClick={() => props.onClose()}
+          >
+            Submit
           </button>
         </div>
       </div>
