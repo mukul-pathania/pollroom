@@ -60,9 +60,9 @@ const Toast = (props: propTypes): JSX.Element => {
       leave="transition duration-500 transform"
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
-      className="fixed w-screen z-50 top-0 left-0 flex items-center justify-center"
+      className="fixed w-screen z-50 pointer-events-none top-0 left-0 flex items-center justify-center"
     >
-      <div className="mx-12 mt-12 ring-1 ring-primary-900 ring-opacity-5 p-4 space-x-4 flex justify-center items-center bg-white rounded-full shadow-2xl">
+      <div className="mx-12 mt-12 pointer-events-auto ring-1 ring-primary-900 ring-opacity-5 p-4 space-x-4 flex justify-center items-center bg-white rounded-full shadow-2xl">
         <div>
           {props.type === 'ERROR' && <ErrorIcon />}
           {props.type === 'INFO' && <InfoIcon />}
