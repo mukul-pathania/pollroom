@@ -2,6 +2,7 @@ import Head from 'next/head';
 import mainLayout from 'layouts/main';
 import Image404 from 'assets/images/404.svg';
 import link from 'link';
+import Link from 'next/link';
 
 const Page404 = (): JSX.Element => {
   return (
@@ -22,12 +23,11 @@ const Page404 = (): JSX.Element => {
           The page you are looking for could not be found
         </p>
         <p className="text-center mt-10">
-          <a
-            href={link.home.hero}
-            className="py-4 px-6 bg-accent-600 rounded font-medium text-xl text-white hover:bg-accent-900 transition duration-500"
-          >
-            Go back to home
-          </a>
+          <Link href={link.home.hero}>
+            <a className="py-4 px-6 bg-accent-600 rounded font-medium text-xl text-white hover:bg-accent-900 transition duration-500">
+              Go back to home
+            </a>
+          </Link>
         </p>
       </div>
     </>

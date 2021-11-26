@@ -1,5 +1,6 @@
 import { useAuth } from 'contexts/AuthContext';
 import links from 'link';
+import Link from 'next/link';
 
 const Background = (): JSX.Element => {
   return (
@@ -31,19 +32,17 @@ const SignUp = (): JSX.Element => {
           Create polls for your meetings, webinars, events and more!
         </p>
         {isAuthenticated ? (
-          <a
-            href={links.createNewRoom}
-            className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300"
-          >
-            Create a room
-          </a>
+          <Link href={links.createNewRoom}>
+            <a className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300">
+              Create a room
+            </a>
+          </Link>
         ) : (
-          <a
-            href={links.signup}
-            className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300"
-          >
-            Sign Up
-          </a>
+          <Link href={links.signup}>
+            <a className="text-accent-500 bg-white rounded py-4 px-6 font-semibold text-xl hover:bg-primary-700 hover:text-white transition transform duration-300">
+              Sign Up
+            </a>
+          </Link>
         )}
       </div>
     </section>

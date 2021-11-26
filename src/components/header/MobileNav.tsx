@@ -5,22 +5,21 @@ import React from 'react';
 import links from 'link';
 import { useAuth } from 'contexts/AuthContext';
 import link from 'link';
+import Link from 'next/link';
 
 const LoginSignUpButtons = (): JSX.Element => {
   return (
     <div className="flex flex-col items-center justify-around mt-4 space-y-2">
-      <a
-        href={links.login}
-        className="hover:text-accent-700 text-primary-500 font-main font-medium text-base cursor-pointer"
-      >
-        Login
-      </a>
-      <a
-        href={links.signup}
-        className="text-primary-700 border-primary-500 hover:text-accent-700 hover:border-accent-700 px-6 py-2 font-main rounded font-semibold text-lg border-2 transition duration-500 cursor-pointer"
-      >
-        Sign Up
-      </a>
+      <Link href={links.login}>
+        <a className="hover:text-accent-700 text-primary-500 font-main font-medium text-base cursor-pointer">
+          Login
+        </a>
+      </Link>
+      <Link href={links.signup}>
+        <a className="text-primary-700 border-primary-500 hover:text-accent-700 hover:border-accent-700 px-6 py-2 font-main rounded font-semibold text-lg border-2 transition duration-500 cursor-pointer">
+          Sign Up
+        </a>
+      </Link>
     </div>
   );
 };
@@ -29,12 +28,11 @@ const Menu = (): JSX.Element => {
   const { logout } = useAuth();
   return (
     <div className="flex flex-col items-center justify-around mt-4 space-y-4">
-      <a
-        className="text-primary-500 font-medium hover:text-accent-600 cursor-pointer"
-        href={link.dashboard}
-      >
-        Dashboard
-      </a>
+      <Link href={link.dashboard}>
+        <a className="text-primary-500 font-medium hover:text-accent-600 cursor-pointer">
+          Dashboard
+        </a>
+      </Link>
 
       <a className="text-primary-500 font-medium hover:text-accent-600 cursor-pointer">
         My Profile

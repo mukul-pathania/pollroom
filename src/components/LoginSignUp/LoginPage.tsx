@@ -9,6 +9,7 @@ import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
 import { useToast } from 'contexts/ToastContext';
 import Error from 'components/ErrorMessageInput';
+import Link from 'next/link';
 
 type propTypes = {
   heading: string;
@@ -165,18 +166,16 @@ const LoginPage = (props: propTypes): JSX.Element => {
               />
             </form>
             <div className="flex w-full justify-between pt-8">
-              <a
-                href={links.resetPassword}
-                className="text-primary-600 hover:text-secondary-900 text-sm md:text-base"
-              >
-                Forgot password?
-              </a>
-              <a
-                href={links.signup}
-                className="text-primary-600 hover:text-secondary-900 text-sm md:text-base"
-              >
-                Create new account
-              </a>
+              <Link href={links.resetPassword}>
+                <a className="text-primary-600 hover:text-secondary-900 text-sm md:text-base">
+                  Forgot password?
+                </a>
+              </Link>
+              <Link href={links.signup}>
+                <a className="text-primary-600 hover:text-secondary-900 text-sm md:text-base">
+                  Create new account
+                </a>
+              </Link>
             </div>
           </div>
         </div>

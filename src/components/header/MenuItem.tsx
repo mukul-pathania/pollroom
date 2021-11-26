@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 type propsType = {
   children: React.ReactNode;
@@ -14,19 +15,20 @@ const MenuItem = ({
   className,
 }: propsType): JSX.Element => {
   return (
-    <a
-      onClick={
-        closeMobileNav
-          ? closeMobileNav
-          : () => {
-              return;
-            }
-      }
-      href={path}
-      className={className}
-    >
-      {children}
-    </a>
+    <Link href={path}>
+      <a
+        onClick={
+          closeMobileNav
+            ? closeMobileNav
+            : () => {
+                return;
+              }
+        }
+        className={className}
+      >
+        {children}
+      </a>
+    </Link>
   );
 };
 

@@ -8,6 +8,7 @@ import Error from 'components/ErrorMessageInput';
 import { sendReviewEmail } from 'adapters/review';
 import { useToast } from 'contexts/ToastContext';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 type contactItemProps = {
   icon: JSX.Element;
@@ -23,22 +24,23 @@ const ContactItem = ({
   link,
 }: contactItemProps): JSX.Element => {
   return (
-    <a
-      className={clsx(link ? 'cursor-pointer' : 'cursor-default')}
-      href={link ? link : ''}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <div className="flex justify-between items-center md:items-start mb-12 flex-col md:flex-row">
-        <div className="md:pr-4 py-2">{icon}</div>
-        <div className="flex flex-col justify-between items-center md:items-start pl-4">
-          <h4 className="font-medium text-lg text-center md:text-left pb-2 text-gray-200">
-            {heading}
-          </h4>
-          {text}
+    <Link href={link ? link : ''}>
+      <a
+        className={clsx(link ? 'cursor-pointer' : 'cursor-default')}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <div className="flex justify-between items-center md:items-start mb-12 flex-col md:flex-row">
+          <div className="md:pr-4 py-2">{icon}</div>
+          <div className="flex flex-col justify-between items-center md:items-start pl-4">
+            <h4 className="font-medium text-lg text-center md:text-left pb-2 text-gray-200">
+              {heading}
+            </h4>
+            {text}
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </Link>
   );
 };
 

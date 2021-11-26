@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import links from 'link';
 import { useAuth } from 'contexts/AuthContext';
 import Menu from './Menu';
+import Link from 'next/link';
 
 type propsType = {
   menuData: { key: number; label: string; path: string; className: string }[];
@@ -15,18 +16,16 @@ type propsType = {
 const LoginSignUpButtons = (): JSX.Element => {
   return (
     <div className="space-x-4 items-baseline hidden md:flex">
-      <a
-        href={links.login}
-        className="hover:text-accent-700 font-main font-medium text-base cursor-pointer"
-      >
-        Login
-      </a>
-      <a
-        href={links.signup}
-        className="hover:text-white hover:bg-accent-700 text-primary-700 px-6 py-2 font-main rounded font-semibold text-base border-primary-700 hover:border-accent-700 border-2 transition-colors duration-500 cursor-pointer"
-      >
-        Sign Up
-      </a>
+      <Link href={links.login}>
+        <a className="hover:text-accent-700 font-main font-medium text-base cursor-pointer">
+          Login
+        </a>
+      </Link>
+      <Link href={links.signup}>
+        <a className="hover:text-white hover:bg-accent-700 text-primary-700 px-6 py-2 font-main rounded font-semibold text-base border-primary-700 hover:border-accent-700 border-2 transition-colors duration-500 cursor-pointer">
+          Sign Up
+        </a>
+      </Link>
     </div>
   );
 };

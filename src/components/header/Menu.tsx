@@ -3,6 +3,7 @@ import AvatarImage from 'assets/images/avatarMenu.png';
 import { useAuth } from 'contexts/AuthContext';
 import link from 'link';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Menu = (): JSX.Element => {
   const { logout, user } = useAuth();
@@ -11,12 +12,9 @@ const Menu = (): JSX.Element => {
     <div className="flex justify-end items-center space-x-10 w-full">
       {pathname !== link.dashboard ? (
         <div>
-          <a
-            href={link.dashboard}
-            className="text-base font-medium text-accent-400"
-          >
-            Dashboard
-          </a>
+          <Link href={link.dashboard}>
+            <a className="text-base font-medium text-accent-400">Dashboard</a>
+          </Link>
         </div>
       ) : null}
       <Popover className="relative">
